@@ -172,14 +172,14 @@ require_once '_bootstrap.php';
                               <label class="d-block">Is this policy replacing another funeral policy?</label>
 
                               <div class="form-check checkbox-lg mb-custom">
-                                  <input class="form-check-input" type="checkbox" value="1" id="checkYes" onclick="selectOnly(this.id)">
+                                  <input class="form-check-input" type="checkbox" value="1" name="replacement[]" id="checkYes" onclick="selectOnly(this.id)">
                                   <label class="form-check-label" for="checkYes">
                                       Yes
                                   </label>
                               </div>
 
                               <div class="form-check checkbox-lg">
-                                  <input class="form-check-input" type="checkbox" value="0" id="checkNo" onclick="selectOnly(this.id)">
+                                  <input class="form-check-input" type="checkbox" value="0" name="replacement[]"  id="checkNo" onclick="selectOnly(this.id)">
                                   <label class="form-check-label" for="checkNo">
                                       No
                                   </label>
@@ -285,7 +285,6 @@ require_once '_bootstrap.php';
                           </div>
                           <input type="hidden" name="policy_holder_cellno" value="<?php echo $cellno; ?>">
                           <input type="hidden" name="id" value="<?php echo $id; ?>">
-                          <input type="hidden" name="debug" value="<?php echo $debug; ?>">
                           <div class="row mt-3 border-top pt-3">
                               <div class="col-6 mb-2">
                                   <button type="button" id="addContact" class="w-100 btn btn-outline-primary btn-lg" style="background-color: #ffffff !important; border-color: #0075C9 !important; color: #0075C9;">Back</button>
