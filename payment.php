@@ -151,16 +151,15 @@ require_once '_bootstrap.php';
                               <div class="form-check">
                                   <input type="checkbox" name="payment_terms" class="form-check-input" id="payment_terms" required>
                                   <label class="form-check-label" for="payment_terms">
-                                      I Confirm this is a once-off payment of R <?php echo $product_price; ?> <br><br>
-                                      Please check your banking app for your DebiCheck confirmation. We will collect payment unless you reject the DebiCheck mandate.<br><br>
-                                      Payments on your bank account will appear as UBELONG along with the reference number - <?php echo $serialno; ?>.
+                                      I Confirm this is a once-off payment of R <?php echo $product_price; ?> via DebiCheck.<br><br>
+                                      This payment will appear on your bank statement with the reference UBELONG <?php echo $serialno; ?>.
                                   </label>
                               </div>
                           </div>
                           <hr />
                           <div class="row">
                               <div class="col-6">
-                                  <button class="w-100 btn btn-outline-primary btn-lg" style="background-color: #ffffff !important; border-color: #0075C9 !important; color: #0075C9;">Go Back</button>
+                                  <button class="w-100 btn btn-outline-primary btn-lg" style="background-color: #ffffff !important; border-color: #0075C9 !important; color: #0075C9;">Back</button>
                               </div>
                               <div class="col-6">
                                   <button type="submit" class="w-100 btn btn-primary btn-lg" style="background-color: #0075C9 !important; border-color: #0075C9 !important; color: white;">Pay now</button>

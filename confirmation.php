@@ -192,7 +192,7 @@ require_once '_bootstrap.php';
                           </div>
                           <p class="fw-bold pt-5">Don't have your previous policy documents?</p>
                           <p class="pt-3">That's OK, you can still apply for prepaid funeral cover. Send us your documents within 31 days from today, or our standard waiting period will apply to your policy.</p>
-                          <p class="pt-3 pb-3">Send proof of cancellation to xxxxxx@sanlam.co.za</p>
+                          <p class="pt-3 pb-3">Send proof of cancellation to digitalfuneralsupport@sanlam.co.za</p>
                           <div class="form-check mt-3 mb-5">
                               <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" required>
                               <label class="form-check-label" for="termsCheckbox">
