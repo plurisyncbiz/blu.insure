@@ -125,6 +125,7 @@ $product_description = $serial_data['product_name'] ?? 'Product';
 $cellno              = $serial_data['cellno'] ?? '';
 $product_price       = $serial_data['product_price'] ?? '0.00';
 $activationid        = $serial_data['activationid'] ?? null;
+$serialno            = $serial_data['serialno'] ?? null;
 
 // Handle Product Configuration JSON safely
 $config_raw = $serial_data['product_configuration'] ?? '{}';
