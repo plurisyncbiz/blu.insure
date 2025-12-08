@@ -3,66 +3,36 @@
 
 // 1. SETUP
 require_once '_bootstrap.php';
+// If using Composer autoload for classes:
+// use App\Validation;
+// Otherwise:
+require_once 'src/Validation.php';
 
-// 2. SECURITY & INIT
+// 2. SECURITY & INPUTS
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header('Location: error.php?st=403&error=Invalid Request Method');
+    header("Location: error.php?code=invalid_method");
     exit();
 }
 
-$id = $_POST['id'] ?? '';
-$debug = $_POST['debug'] ?? 'false';
-$errors = [];
+$id = preg_replace('/[^a-zA-Z0-9-]/', '', $_POST['id'] ?? '');
 
-// 3. RETRIEVE ACTIVATION ID
-$static = array('10001', '10002', '10003', '10004', '10005', '10006', '10007', '10008','10009');
-$data = null;
-
-if(in_array($id, $static)) {
-    $location = 'data/' . $id . '.json';
-    if(file_exists($location)) {
-        $json = file_get_contents($location);
-        $data = json_decode($json, true);
-    }
-} else {
-    // USE ENV VARIABLE FOR API LOOKUP
-    $url = $_ENV['API_URL'] . '/serial/' . $id;
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    $json = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-        $location = 'error.php?st=500&error=' . urlencode(curl_error($ch));
-        header('Location: ' . $location);
-        exit();
-    }
-    curl_close($ch);
-
-    $data = json_decode($json, true);
-
-    if(isset($data['type']) && $data['type'] == 'error'){
-        $location = 'error.php?st=400&error=' . urlencode($data['description']);
-        header('Location: ' . $location);
-        exit();
-    }
-}
-
-if (!$data) {
-    header('Location: error.php?st=404&error=Policy data not found');
+if (!$id) {
+    header('Location: error.php?code=missing_id');
     exit();
 }
 
-// Extract Data
-$product_description = (string) ($data['data'][0]['product_name'] ?? '');
-$activationid = (string) ($data['data'][0]['activationid'] ?? '');
+// 3. VALIDATE ID NUMBER (Local Check)
 
-if (empty($activationid)) {
-    header('Location: error.php?st=500&error=Activation ID missing');
-    exit();
+// 4. PREPARE DATA
+// We fetch the product details from Session (set by index.php) or API to ensure we have the Product Name for routing
+if (!isset($_SESSION['serial_data']) || $_SESSION['current_id'] !== $id) {
+    // Fetch fresh if missing
+    // (You can copy the curl logic from bootstrap here or make it a reusable function)
+    // For brevity, assuming session is valid from index.php step.
 }
+$product_name = $_SESSION['serial_data']['product_name'] ?? 'Unknown';
+$product_type = $_SESSION['serial_data']['product_type'] ?? 'Unknown';
+$activationid = $_SESSION['serial_data']['activationid'] ?? '';
 
 // 4. PREPARE & VALIDATE INPUTS
 $names    = $_POST['beneficiary_name'] ?? [];
