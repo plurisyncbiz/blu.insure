@@ -155,6 +155,8 @@ foreach ($validBeneficiaries as $beneficiary) {
 
     $response = json_decode($jsonResponse, true);
 
+    die(var_dump($response));
+
     if(isset($response['type']) && $response['type'] == 'error'){
         $location = 'error.php?st=400&error=' . urlencode($response['description']);
         header('Location: ' . $location);

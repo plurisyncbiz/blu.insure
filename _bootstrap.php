@@ -100,7 +100,6 @@ if (!$is_cached) {
         if ($http_code === 200 && $response) {
             $decoded = json_decode($response, true);
             $serial_data = $decoded['data'][0] ?? null;
-            die(var_dump($serial_data));
         }
     }
 
