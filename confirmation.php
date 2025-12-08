@@ -293,7 +293,7 @@ require_once '_bootstrap.php';
                                   <button type="submit" class="w-100 btn btn-primary btn-lg" style="background-color: #0075C9 !important; border-color: #0075C9 !important; color: white;">Confirm</button>
                               </div>
                           </div>
-                          <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets</p>
+                          <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets, a Licenced Life Insurer & Authorised FSP (11230)</p>
 
                       </form>
                   </div>

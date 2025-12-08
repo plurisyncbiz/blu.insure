@@ -163,6 +163,7 @@ require_once '_bootstrap.php';
 
                         <input type="hidden" name="policy_holder_cellno" value="<?php echo htmlspecialchars($cellno); ?>">
                         <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+                        <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets, a Licenced Life Insurer & Authorised FSP (11230)</p>
 
                     </form>
                 </div>

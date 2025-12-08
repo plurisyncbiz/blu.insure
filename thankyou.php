@@ -87,7 +87,7 @@
 
                     <div class="mt-4 text-secondary">
                         <p class="mb-1">Questions about your application?</p>
-                        <p class="fw-bold" style="color: #6c757d;">Call 0821122233</p>
+                        <p class="fw-bold" style="color: #6c757d;">Call 087 330 5365</p>
                     </div>
 
                 </div>
