@@ -23,7 +23,7 @@ if (!$id) {
 
 // 3. VALIDATE ID NUMBER (Local Check)
 $idno = $_POST['policy_holder_idno'] ?? '';
-$id_analysis = \App\Validation::parseSAID($idno);
+$id_analysis = Validation::parseSAID($idno);
 
 if (!$id_analysis['valid']) {
     // Redirect back to form with error (You can make this fancier with sessions later)
