@@ -50,6 +50,8 @@ if (in_array($id, $static_ids)) {
     // Production: Call API
     $url = $_ENV['API_URL'] . '/serial/' . $id;
 
+    die($url);
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
