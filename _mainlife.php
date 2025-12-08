@@ -61,7 +61,7 @@ $policy_holder = [
     'activationid'        => $activationid
 ];
 
-die(print_r($policy_holder, true));
+
 
 // 5. SUBMIT TO API
 $url = $_ENV['API_URL'] . '/policy/main';
