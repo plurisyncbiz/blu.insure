@@ -1,47 +1,6 @@
 <?php
-$ip = $_SERVER['REMOTE_ADDR'];
-
-$id = (string)$_GET['id'];
-$debug = (string)$_GET['debug'];
-if(!$id){
-    $location = 'error.php?st=400&error=' . 'Policy not activated or invalid link';
-    header('Location: ' . $location);
-    exit();
-}
-//api call will go here
-$static = array('10001', '10002', '10003', '10004', '10005', '10006', '10007', '10008','10009');
-if(in_array($id, $static)){
-    $location = 'data/' . $id . '.json';
-    $json = file_get_contents($location);
-} else {
-    //get activation details.
-    $url = 'https://api.blu.insure/serial/' . $id;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $json = curl_exec($ch);
-    if (curl_errno($ch)) {
-        $error_msg = curl_error($ch);
-    }
-    curl_close($ch);
-}
-
-//file get contents returns false on error or API had no valid data
-if(!$json){
-    header('Location: error.php');
-    exit;
-} else {
-    //fetch activation details
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $data = json_decode($json, true);
-    $product_code = (string) $data['data'][0]['product_code'];
-    $cellno = (string) $data['data'][0]['cellno'];
-}
-
-$product_code = (string) $data['data'][0]['product_code'];
-$cellno = (string) $data['data'][0]['cellno'];
-$product_description = (string) $data['data'][0]['product_name'];
-
+// Load the engine. If this fails, the page stops here.
+require_once '_bootstrap.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -346,16 +305,16 @@ $product_description = (string) $data['data'][0]['product_name'];
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
-      <p style="font-size: 0.75em;">
-          <?php print_r($data); ?>
-      </p>
+      <?php if($_ENV['APP_ENV'] !== 'production'): ?>
+          <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($serial_data); ?></p>
+      <?php endif; ?>
 
-      <p class="mb-1">&copy; 2025 Blue Label Data Solutions (Pty) Ltd</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
+      <p class="mb-1">&copy; <?php echo date('Y'); ?> Blue Label Data Solutions (Pty) Ltd</p>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Privacy</a></li>
+          <li class="list-inline-item"><a href="#">Terms</a></li>
+          <li class="list-inline-item"><a href="#">Support</a></li>
+      </ul>
   </footer>
 </div>
 
