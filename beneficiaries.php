@@ -238,7 +238,7 @@ require_once '_bootstrap.php';
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
       <?php if($_ENV['APP_ENV'] !== 'production'): ?>
-          <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($data); ?></p>
+          <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($serial_data); ?></p>
       <?php endif; ?>
 
       <p class="mb-1">&copy; <?php echo date('Y'); ?> Blue Label Data Solutions (Pty) Ltd</p>
