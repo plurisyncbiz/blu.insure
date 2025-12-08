@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Check if the requested path is not an existing file
+RewriteCond %{REQUEST_FILENAME} !-f
+# Check if the requested path is not an existing directory
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# If the above conditions are true, rewrite the request to index.php
+RewriteRule ^(.*)$ index.php?id=$1 [QSA,L]

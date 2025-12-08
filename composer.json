@@ -1,0 +1,16 @@
+{
+  "name": "vendor_name/blu.insure",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "pierreroux",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "ramsey/uuid": "^4.9",
+    "vlucas/phpdotenv": "^5.3"
+  }
+}

@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Activate Your Policy Example</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="https://www.blucreditdeals.co.za/v1/img/bluapproved_logo_landscape.png" alt="" width="200" >
+      <h2>Activate Your Prepaid Funeral Policy</h2>
+      <p class="lead">Please complete your details</p>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-5 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">Your Products</span>
+          <span class="badge bg-primary rounded-pill">1</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Sanlam Funeral Policy</h6>
+              <small class="text-muted">R 10,000 Cover, For 3 Months</small>
+              <br />
+              <small class="text-muted fw-bold">Serial Number: 1234567890102039484</small>
+
+            </div>
+            <span class="text-muted">R 180.00</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (ZAR)</span>
+            <strong>R 180.00</strong>
+          </li>
+        </ul>
+
+      </div>
+      <div class="col-md-7 col-lg-7">
+        <h4 class="mb-3">Policyholder Information</h4>
+        <p class="lead">This is the person entering into the funeral policy. The Policyholder owns the policy and is the only person entitled to receive payment of the benefits to pay for the funerals of the insured persons. Note: Cover is only available for a Policyholder who is younger than 65 on the start date of the Policy.</p>
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="name" class="form-label">First name</label>
+              <input type="text" class="form-control" id="name" placeholder="First Name" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="surname" class="form-label">Surname</label>
+              <input type="text" class="form-control" id="surname" placeholder="Surname" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="idno" class="form-label">South African Identity Number</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                <input type="text" class="form-control" id="idno" placeholder="South African Identity Number" required>
+              <div class="invalid-feedback">
+                  Please enter a valid South African Identity Number, we will use this to verify your identity (KYC).
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="cellno" class="form-label">Cellphone Number</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                <input type="text" class="form-control" id="cellno" placeholder="Cellphone number" required>
+              <div class="invalid-feedback">
+                  Please enter a valid cellphone number, we will send updates about your policy to this number.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+              <div class="input-group has-validation">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input type="email" class="form-control" id="email" placeholder="you@email.com">
+                <div class="invalid-feedback">
+                  Please enter a valid email address for policy updates.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+              <div class="invalid-feedback">
+                Please enter your home address.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
+              <input type="text" class="form-control" id="address2" placeholder="Building or Complex Name">
+            </div>
+
+            <div class="col-12">
+              <label for="suburb" class="form-label">Suburb</label>
+              <input type="text" class="form-control" id="suburb" placeholder="Suburb" required>
+            </div>
+
+            <div class="col-12">
+              <label for="city" class="form-label">City</label>
+              <input type="text" class="form-control" id="city" placeholder="City" required>
+            </div>
+
+            <div class="col-md-5">
+              <label for="country" class="form-label">Country</label>
+              <select class="form-select" id="country" required>
+                <option value="">Choose...</option>
+                <option>South Africa</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country.
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="province" class="form-label">Province</label>
+              <select class="form-select" id="province" required>
+                <option value="">Choose...</option>
+                <option>Eastern Cape</option>
+                <option>Free State</option>
+                <option>Gauteng</option>
+                <option>KwaZulu-Natal</option>
+                <option>Limpopo</option>
+                <option>Mpumalanga</option>
+                <option>Northern Cape</option>
+                <option>North West</option>
+                <option>Western Cape</option>
+              </select>
+              <div class="invalid-feedback">
+                Please provide a valid province.
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="postcode" class="form-label">Post Code</label>
+              <input type="text" class="form-control" id="postcode" placeholder="" required>
+              <div class="invalid-feedback">
+                Zip code required.
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <h4 class="mb-3">Add A Beneficiary</h4>
+          <p class="lead">On the death of the Policyholder, the beneficiary stated below will receive the benefits of the policy (100%)</p>
+          <form class="needs-validation" novalidate>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="benname" class="form-label">First name</label>
+                <input type="text" class="form-control" id="benname" placeholder="First Name" value="" required>
+                <div class="invalid-feedback">
+                  Valid first name is required.
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="bensurname" class="form-label">Surname</label>
+                <input type="text" class="form-control" id="bensurname" placeholder="Surname" value="" required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="benidno" class="form-label">South African Identity Number</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                  <input type="text" class="form-control" id="benidno" placeholder="South African Identity Number" required>
+                  <div class="invalid-feedback">
+                    Please enter a valid South African Identity Number, we will use this to verify your identity (KYC).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+
+
+          <hr class="my-4">
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="dataSharing">
+            <label class="form-check-label" for="dataSharing">I understand that the information I have provided will be shared with the Insurer to offer you this policy.</label>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="privacy">
+            <label class="form-check-label" for="privacy">I have read and agree to your <a href="#" target="_blank">privacy policy</a> and <a href="#" target="_blank">terms & conditions</a></label>
+          </div>
+
+          <hr class="my-4">
+
+          <h4 class="mb-3">How would you like to make Payment</h4>
+
+          <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="credit">Credit or Debit card</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="debit">DebiCheck (Debit Order)</label>
+            </div>
+            <div class="form-check">
+              <input id="voucher" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="voucher">I have a Blu Approved Voucher</label>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2025 Blue Label Data Solutions (Pty) Ltd</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <script src="form-validation.js"></script>
+  </body>
+</html>
