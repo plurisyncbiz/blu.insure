@@ -144,9 +144,9 @@ if (isset($paymentResponse['type']) && $paymentResponse['type'] == 'error') {
 /**
  * Helper function to submit the mandate
  */
-function submit_mandate(string $serialno, string $api_base): array
+function submit_mandate(string $activationid, string $api_base): array
 {
-    $url = $api_base . '/mandate/' . $serialno;
+    $url = $api_base . '/mandate/' . $activationid;
 
     $ch = curl_init();
 
