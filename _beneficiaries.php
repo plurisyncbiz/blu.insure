@@ -175,7 +175,7 @@ switch ($product_type) {
         break;
 
     default:
-        $location = 'error.php?st=400&error=' . urlencode('Unknown Product: ' . $product_description);
+        $location = 'error.php?st=400&error=' . urlencode('Unknown Product: ' . $product_type);
         break;
 }
 
