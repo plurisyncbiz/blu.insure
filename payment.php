@@ -98,6 +98,7 @@ require_once '_bootstrap.php';
                           <span><?php echo $product_description; ?></span>
                       </div>
                   </div>
+
                   <div class="col pt-0 pb-0 bg-white">
                       <div class="d-flex" style="height: 5px; background-color: #d9dce1;">
                           <div class="progress-bar progress-step-gap" role="progressbar" style="width: 20%; background-color: #8faed3 !important;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
