@@ -6,7 +6,7 @@ require_once '_bootstrap.php';
 // If using Composer autoload for classes:
 // use App\Validation;
 // Otherwise:
-require_once 'src/Validation.php';
+require_once '/src/Validation.php';
 
 // 2. SECURITY & INPUTS
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
