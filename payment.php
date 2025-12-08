@@ -77,6 +77,9 @@ require_once '_bootstrap.php';
                   font-size: 3.5rem;
               }
           }
+
+          .progress-step-gap { margin-right: 2px; }
+
       </style>
 
     
