@@ -237,16 +237,16 @@ require_once '_bootstrap.php';
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
-      <p style="font-size: 0.75em;">
-          <?php print_r($data); ?>
-      </p>
+      <?php if($_ENV['APP_ENV'] !== 'production'): ?>
+          <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($data); ?></p>
+      <?php endif; ?>
 
-      <p class="mb-1">&copy; 2025 Blue Label Data Solutions (Pty) Ltd</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
+      <p class="mb-1">&copy; <?php echo date('Y'); ?> Blue Label Data Solutions (Pty) Ltd</p>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Privacy</a></li>
+          <li class="list-inline-item"><a href="#">Terms</a></li>
+          <li class="list-inline-item"><a href="#">Support</a></li>
+      </ul>
   </footer>
 </div>
 
