@@ -6,6 +6,10 @@
 ini_set('display_errors', 0);
 
 require __DIR__ . '/vendor/autoload.php';
+
+require_once __DIR__ . '/src/Validation.php';
+
+
 use Dotenv\Dotenv;
 
 // Start session safely

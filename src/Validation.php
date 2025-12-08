@@ -1,6 +1,4 @@
 <?php
-namespace src;
-
 class Validation {
 
     public static function parseSAID($idNumber) {
