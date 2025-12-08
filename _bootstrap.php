@@ -121,6 +121,7 @@ if (!$is_cached) {
 // so index.php can use them directly.
 
 $product_code        = $serial_data['product_code'] ?? '';
+$product_type        = $serial_data['product_type'] ?? 'Product';
 $product_description = $serial_data['product_name'] ?? 'Product';
 $cellno              = $serial_data['cellno'] ?? '';
 $product_price       = $serial_data['product_price'] ?? '0.00';

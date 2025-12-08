@@ -39,6 +39,7 @@ if (!isset($_SESSION['serial_data']) || $_SESSION['current_id'] !== $id) {
     // For brevity, assuming session is valid from index.php step.
 }
 $product_name = $_SESSION['serial_data']['product_name'] ?? 'Unknown';
+$product_type = $_SESSION['serial_data']['product_type'] ?? 'Unknown';
 $activationid = $_SESSION['serial_data']['activationid'] ?? '';
 
 // Build the payload
@@ -90,7 +91,7 @@ if ($http_code >= 400 || ($api_result['type'] ?? '') === 'error') {
 $next_page = 'error.php?error=unknown_product_route';
 
 // Modern PHP Match (PHP 8.0+) or Switch
-switch ($product_name) {
+switch ($product_type) {
     case 'Sanlam Individual Funeral Cover':
         $next_page = 'beneficiaries.php';
         break;
