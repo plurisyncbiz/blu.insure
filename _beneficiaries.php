@@ -131,7 +131,7 @@ foreach ($validBeneficiaries as $beneficiary) {
         exit();
     }
 }
-die(var_dump($serial_data));
+
 
 // 7. REDIRECT ON SUCCESS
 // USE ENV VARIABLE FOR REDIRECT DOMAIN
