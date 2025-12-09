@@ -16,8 +16,19 @@ require_once '_bootstrap.php';
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         body { font-family: 'Roboto', sans-serif; }
-        .form-floating>.form-control { height: calc(2.25rem + 30px) !important; }
-        .form-floating>label { padding: .5rem .5rem !important; }
+
+        /* Fix for consistent height on both Inputs and Selects */
+        .form-floating > .form-control,
+        .form-floating > .form-select {
+            height: calc(3.5rem + 2px) !important;
+            line-height: 1.25;
+        }
+
+        /* Ensure labels align correctly */
+        .form-floating > label {
+            padding: 1rem 0.75rem;
+        }
+
         .progress-step-gap { margin-right: 2px; }
     </style>
 </head>
@@ -72,86 +83,68 @@ require_once '_bootstrap.php';
                         </div>
                     </div>
 
-                    <form action="_mainlife.php" method="post" class="needs-validation mt-3" novalidate>
+                    <form action="_mainlife.php" method="post" class="needs-validation mt-4" novalidate>
 
-                        <div class="col pt-3">
-                            <div class="form-floating">
-                                <input type="text" name="policy_holder_name" class="form-control form-control-lg" id="name" placeholder="First Name" required>
-                                <label for="name" class="form-label">First names</label>
-                                <small class="text-muted">Same as your ID</small>
-                                <div class="invalid-feedback">Valid first name(s) are required.</div>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="policy_holder_name" class="form-control form-control-lg" id="name" placeholder="First Name" required>
+                            <label for="name">First names</label>
+                            <div class="invalid-feedback">Valid first name(s) are required.</div>
                         </div>
 
-                        <div class="col pt-3">
-                            <div class="form-floating">
-                                <input type="text" name="policy_holder_surname" class="form-control form-control-lg" id="surname" placeholder="Surname" required>
-                                <label for="surname" class="form-label">Surname</label>
-                                <small class="text-muted">Same as your ID</small>
-                                <div class="invalid-feedback">Valid surname is required.</div>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="policy_holder_surname" class="form-control form-control-lg" id="surname" placeholder="Surname" required>
+                            <label for="surname">Surname</label>
+                            <div class="invalid-feedback">Valid surname is required.</div>
                         </div>
 
-                        <div class="col pt-3">
-                            <div class="form-floating">
-                                <input type="text" name="policy_holder_idno" class="form-control form-control-lg" id="idno" placeholder="South African Identity Number"
-                                       inputmode="numeric" pattern="^(((\d{2}((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8])))|([02468][048]|[13579][26])0229))(( |-)(\d{4})( |-)(\d{3})|(\d{7}))" required>
-                                <label for="idno" class="form-label">South African Identity Number</label>
-                                <div class="invalid-feedback">Please enter a valid South African Identity Number.</div>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="policy_holder_idno" class="form-control form-control-lg" id="idno" placeholder="South African Identity Number"
+                                   inputmode="numeric" pattern="^(((\d{2}((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8])))|([02468][048]|[13579][26])0229))(( |-)(\d{4})( |-)(\d{3})|(\d{7}))" required>
+                            <label for="idno">South African Identity Number</label>
+                            <div class="invalid-feedback">Please enter a valid South African Identity Number.</div>
                         </div>
 
-                        <div class="col pt-3">
-                            <div class="form-floating">
-                                <div class="form-control form-control-lg text-muted bg-light pt-3">
-                                    <?php echo htmlspecialchars($cellno); ?>
-                                </div>
-                                <label for="cellno" class="form-label">Cellphone number</label>
-                                <p class="fs-6 pt-1 text-muted"><small>This number is linked to your policy and cannot be changed here.</small></p>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-lg bg-light" id="cellno" placeholder="Cellphone" value="<?php echo htmlspecialchars($cellno); ?>" readonly>
+                            <label for="cellno">Cellphone number</label>
+                            <div class="form-text">This number is linked to your policy and cannot be changed here.</div>
                         </div>
 
-                        <div class="col pt-3">
-                            <div class="form-floating">
-                                <input type="email" name="policy_holder_email" class="form-control form-control-lg" id="email" placeholder="Email">
-                                <label for="email" class="form-label">Email address</label>
-                                <small class="text-muted">Optional</small>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" name="policy_holder_email" class="form-control form-control-lg" id="email" placeholder="name@example.com">
+                            <label for="email">Email address <span class="text-muted small">(Optional)</span></label>
                         </div>
 
-                        <div class="col pt-3">
-                            <div class="form-floating">
-                                <select name="employment_status" class="form-select form-select-lg" required>
-                                    <option value="" selected disabled></option>
-                                    <option value="EMPLOYED">Employed</option>
-                                    <option value="OTHER">Other</option>
-                                    <option value="RETIRED">Retired</option>
-                                    <option value="SELF_EMPLOYED">Self Employed</option>
-                                    <option value="STUDENT">Student</option>
-                                    <option value="UNEMPLOYED">Unemployed</option>
-                                </select>
-                                <label for="employment_status" class="form-label">Employment status</label>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <select name="employment_status" class="form-select form-select-lg" id="employment_status" required aria-label="Employment Status">
+                                <option value="" selected disabled>Select status...</option>
+                                <option value="EMPLOYED">Employed</option>
+                                <option value="OTHER">Other</option>
+                                <option value="RETIRED">Retired</option>
+                                <option value="SELF_EMPLOYED">Self Employed</option>
+                                <option value="STUDENT">Student</option>
+                                <option value="UNEMPLOYED">Unemployed</option>
+                            </select>
+                            <label for="employment_status">Employment status</label>
                         </div>
 
-                        <div class="col pt-3">
-                            <div class="form-floating">
-                                <select name="employment_industry" class="form-select form-select-lg mb-3" required>
-                                    <option value="" selected disabled></option>
-                                    <option value="AGRICULTURE_FORESTRY_AND_FISHING">Agriculture, Forestry & Fishing</option>
-                                    <option value="FINANCIAL_AND_INSURANCE">Financial & Insurance</option>
-                                    <option value="GOVERNMENT_SERVICES">Government</option>
-                                    <option value="HEALTHCARE_AND_MEDICAL">Healthcare & Medical</option>
-                                    <option value="INFORMATION_TECHNOLOGY">IT & Telecoms</option>
-                                    <option value="MANUFACTURING">Manufacturing</option>
-                                    <option value="TRANSPORT">Transport</option>
-                                    <option value="OTHER">Other</option>
-                                </select>
-                                <label for="employment_industry" class="form-label">Industry</label>
-                            </div>
+                        <div class="form-floating mb-4">
+                            <select name="employment_industry" class="form-select form-select-lg" id="employment_industry" required aria-label="Industry">
+                                <option value="" selected disabled>Select industry...</option>
+                                <option value="AGRICULTURE_FORESTRY_AND_FISHING">Agriculture, Forestry & Fishing</option>
+                                <option value="FINANCIAL_AND_INSURANCE">Financial & Insurance</option>
+                                <option value="GOVERNMENT_SERVICES">Government</option>
+                                <option value="HEALTHCARE_AND_MEDICAL">Healthcare & Medical</option>
+                                <option value="INFORMATION_TECHNOLOGY">IT & Telecoms</option>
+                                <option value="MANUFACTURING">Manufacturing</option>
+                                <option value="TRANSPORT">Transport</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <label for="employment_industry">Industry</label>
                         </div>
 
-                        <hr />
+                        <hr class="my-4" />
+
                         <div class="row">
                             <div class="col-6">
                                 <button type="button" class="w-100 btn btn-outline-primary btn-lg" onclick="history.back()">Back</button>
@@ -173,8 +166,8 @@ require_once '_bootstrap.php';
 </div>
 
 <footer class="my-5 pt-5 text-muted text-center text-small">
-    <?php if($_ENV['APP_ENV'] !== 'production'): ?>
-        <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($serial_data); ?></p>
+    <?php if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] !== 'production'): ?>
+        <p style="font-size: 0.75em; color: red;">DEBUG: <?php if(isset($serial_data)) print_r($serial_data); ?></p>
     <?php endif; ?>
 
     <p class="mb-1">&copy; <?php echo date('Y'); ?> Blue Label Data Solutions (Pty) Ltd</p>
