@@ -317,7 +317,7 @@ $beneficiaries = $policy_data['beneficiaries'] ?? [];
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <div class="row mt-3 border-top pt-3">
                             <div class="col-12 mb-2">
-                                <button type="submit" class="w-100 btn btn-primary btn-lg" style="background-color: #0075C9 !important; border-color: #0075C9 !important; color: white;">Submit Application</button>
+                                <button type="submit" class="w-100 btn btn-primary btn-lg" style="background-color: #0075C9 !important; border-color: #0075C9 !important; color: white;">Submit application</button>
                             </div>
                             <div class="col-12 mb-2">
                                 <button type="button" id="addContact" class="w-100 btn btn-outline-primary btn-lg" style="background-color: #ffffff !important; border-color: #0075C9 !important; color: #0075C9;" onclick="history.back()">Back</button>
