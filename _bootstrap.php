@@ -143,6 +143,85 @@ if (!$activationid && strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
     // Leaving this open based on your previous code logic.
 }
 
+/* -----------------------------------------------------------------
+   HELPER FUNCTIONS
+   ----------------------------------------------------------------- */
+
+/**
+ * Fetch initial Serial/Activation data (Handles Static vs API logic)
+ */
+function getSerialData(string $id): ?array
+{
+    // 1. Check Static Array (Mock Data)
+    $static = ['10001', '10002', '10003', '10004', '10005', '10006', '10007', '10008', '10009'];
+    if (in_array($id, $static)) {
+        $location = __DIR__ . '/data/' . $id . '.json';
+        if (file_exists($location)) {
+            return json_decode(file_get_contents($location), true);
+        }
+    }
+
+    // 2. API Fallback
+    $api_base = $_ENV['API_URL'] ?? 'https://api.blu.insure';
+    $url = $api_base . '/serial/' . $id;
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    $json = curl_exec($ch);
+    $error = curl_errno($ch);
+    curl_close($ch);
+
+    if ($error) {
+        return null;
+    }
+
+    $data = json_decode($json, true);
+
+    // Return null if API returned an error type
+    if (isset($data['type']) && $data['type'] === 'error') {
+        return null;
+    }
+
+    return $data;
+}
+
+/**
+ * Fetch detailed Policy Holder info using Activation ID
+ */
+function getPolicyDetails(string $activation_id): ?array
+{
+    $api_base = $_ENV['API_URL'] ?? 'https://api.blu.insure';
+    $url = $api_base . '/policy/details/' . $activation_id;
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    $json = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        return null;
+    }
+    curl_close($ch);
+
+    return json_decode($json, true);
+}
+
+/**
+ * Helper to get Full Name safely
+ */
+function getPolicyHolderName(array $policy_data): string
+{
+    if (isset($policy_data['data']['policy_holder'])) {
+        $p_name = $policy_data['data']['policy_holder']['name'] ?? '';
+        $p_surname = $policy_data['data']['policy_holder']['surname'] ?? '';
+        return trim($p_name . ' ' . $p_surname);
+    }
+    return '';
+}
+
 // END OF BOOTSTRAP
 // Script continues to the file that included this...
 ?>

@@ -1,12 +1,37 @@
 <?php
-// Load the engine. If this fails, the page stops here.
+// Load the engine.
 require_once '_bootstrap.php';
 
-// Logic to ensure we have the name for the "Account Holder" field
-// Assuming $data is populated from the API call in your provided logic
-$policy_holder_name = $data['data'][0]['policy_holder']['name'] ?? '';
-$policy_holder_surname = $data['data'][0]['policy_holder']['surname'] ?? '';
-$fullname = trim($policy_holder_name . ' ' . $policy_holder_surname);
+// 1. GET ID
+$id = (string)($_GET['id'] ?? '');
+if(!$id){
+    header('Location: error.php?st=400&error=Invalid Link');
+    exit();
+}
+
+// 2. FETCH SERIAL DATA (Using Bootstrap Helper)
+$data = getSerialData($id);
+
+if(!$data){
+    header('Location: error.php?st=404&error=Policy data not found');
+    exit();
+}
+
+// Extract Variables
+$product_description = (string) ($data['data'][0]['product_name'] ?? '');
+$product_price       = (string) ($data['data'][0]['product_price'] ?? '');
+$serialno            = (string) ($data['data'][0]['serialno'] ?? '');
+$cellno              = (string) ($data['data'][0]['cellno'] ?? '');
+$activationid        = (string) ($data['data'][0]['activationid'] ?? '');
+
+// 3. FETCH POLICY DETAILS (Using Bootstrap Helper)
+$fullname = '';
+if($activationid) {
+    $policy_data = getPolicyDetails($activationid);
+    if($policy_data) {
+        $fullname = getPolicyHolderName($policy_data);
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,19 +48,38 @@ $fullname = trim($policy_holder_name . ' ' . $policy_holder_surname);
 
         body { font-family: 'Roboto', sans-serif; }
 
-        /* Consistency for Inputs and Selects */
-        .form-floating>.form-control,
-        .form-floating>.form-select {
-            height: calc(3.5rem + 2px) !important;
+        /* --- FORM FIELD SPACING & CONSISTENCY --- */
+        .form-floating > .form-control,
+        .form-floating > .form-select {
+            height: 3.625rem !important;
+            padding-top: 1.625rem !important;
+            padding-bottom: 0.625rem !important;
             line-height: 1.25;
         }
-        .form-floating>label {
-            padding: 1rem 0.75rem;
+
+        .form-floating > label {
+            padding: 1rem 0.75rem !important;
+            color: #6c757d;
         }
 
-        /* Info Box Styling (Matches Screenshot) */
+        .form-control,
+        .form-select {
+            color: #212529 !important;
+            font-size: 1rem !important;
+            font-weight: 400;
+            border: 1px solid #ced4da;
+        }
+
+        /* Readonly Fields (Account Holder) - White Background */
+        .form-control:read-only,
+        .form-control[readonly] {
+            background-color: #fff !important;
+            opacity: 1;
+        }
+
+        /* Info Box */
         .info-box-blue {
-            background-color: #2672bf; /* Slightly distinct blue from screenshot or keep #0075C9 */
+            background-color: #2672bf;
             color: white;
             border-radius: 5px;
             padding: 15px;
@@ -50,7 +94,6 @@ $fullname = trim($policy_holder_name . ' ' . $policy_holder_surname);
             margin-top: -2px;
         }
 
-        /* Section Headers */
         .section-title {
             font-size: 1.1rem;
             font-weight: 500;
@@ -59,7 +102,6 @@ $fullname = trim($policy_holder_name . ' ' . $policy_holder_surname);
             margin-bottom: 0.75rem;
         }
 
-        /* Checkbox Styling */
         .form-check-input {
             width: 1.3em;
             height: 1.3em;
@@ -123,7 +165,7 @@ $fullname = trim($policy_holder_name . ' ' . $policy_holder_surname);
                     <form action="_payment.php" method="post" class="needs-validation" novalidate>
 
                         <div class="form-floating mb-4">
-                            <select name="source_of_funds" class="form-select form-select-lg" id="source_of_funds" required>
+                            <select name="source_of_funds" class="form-select" id="source_of_funds" required>
                                 <option value="" selected disabled>Select source...</option>
                                 <option value="SALARY">Salary</option>
                                 <option value="SAVINGS">Savings</option>
@@ -135,18 +177,18 @@ $fullname = trim($policy_holder_name . ' ' . $policy_holder_surname);
                         <div class="section-title">Bank details</div>
 
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control form-control-lg bg-light" id="acc_holder" placeholder="Account Holder" value="<?php echo htmlspecialchars($fullname); ?>" readonly>
+                            <input type="text" class="form-control" id="acc_holder" placeholder="Account Holder" value="<?php echo htmlspecialchars($fullname); ?>" readonly>
                             <label for="acc_holder">Account holder name</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="text" name="acc_no" class="form-control form-control-lg" id="acc_no" placeholder="Account Number" inputmode="numeric" required>
+                            <input type="text" name="acc_no" class="form-control" id="acc_no" placeholder="Account Number" inputmode="numeric" required>
                             <label for="acc_no">Bank account number</label>
                             <div class="invalid-feedback">Valid account number required.</div>
                         </div>
 
                         <div class="form-floating mb-4">
-                            <select name="bank" class="form-select form-select-lg" id="bank" required>
+                            <select name="bank" class="form-select" id="bank" required>
                                 <option value="" selected disabled>Select bank...</option>
                                 <option value="ABSA">ABSA</option>
                                 <option value="ACCESSBANK">Access Bank</option>
@@ -201,7 +243,7 @@ $fullname = trim($policy_holder_name . ' ' . $policy_holder_surname);
 
 <footer class="my-5 pt-5 text-muted text-center text-small">
     <?php if(isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] !== 'production'): ?>
-        <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($serial_data); ?></p>
+        <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($data); ?></p>
     <?php endif; ?>
 
     <p class="mb-1">&copy; <?php echo date('Y'); ?> Blue Label Data Solutions (Pty) Ltd</p>
