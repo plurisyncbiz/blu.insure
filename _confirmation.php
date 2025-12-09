@@ -62,6 +62,7 @@ if(in_array($id, $static)) {
     curl_close($ch);
     $data = json_decode($json, true);
 }
+die(print_r($data));
 
 if (!$data || (isset($data['type']) && $data['type'] == 'error')) {
     header('Location: error.php?st=404&error=Policy not found');
