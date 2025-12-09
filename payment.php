@@ -9,7 +9,7 @@ if(!$id){
     exit();
 }
 
-// 2. FETCH SERIAL DATA (Using Bootstrap Helper)
+// 2. FETCH SERIAL DATA
 $data = getSerialData($id);
 
 if(!$data){
@@ -24,7 +24,7 @@ $serialno            = (string) ($data['data'][0]['serialno'] ?? '');
 $cellno              = (string) ($data['data'][0]['cellno'] ?? '');
 $activationid        = (string) ($data['data'][0]['activationid'] ?? '');
 
-// 3. FETCH POLICY DETAILS (Using Bootstrap Helper)
+// 3. FETCH POLICY DETAILS
 $fullname = '';
 if($activationid) {
     $policy_data = getPolicyDetails($activationid);
@@ -48,13 +48,15 @@ if($activationid) {
 
         body { font-family: 'Roboto', sans-serif; }
 
-        /* --- FORM FIELD SPACING & CONSISTENCY --- */
+        /* --- STANDARD FORM FIELD STYLING --- */
         .form-floating > .form-control,
         .form-floating > .form-select {
             height: 3.625rem !important;
             padding-top: 1.625rem !important;
             padding-bottom: 0.625rem !important;
             line-height: 1.25;
+            color: #212529 !important;
+            border: 1px solid #ced4da;
         }
 
         .form-floating > label {
@@ -62,22 +64,114 @@ if($activationid) {
             color: #6c757d;
         }
 
-        .form-control,
-        .form-select {
-            color: #212529 !important;
-            font-size: 1rem !important;
-            font-weight: 400;
-            border: 1px solid #ced4da;
-        }
-
-        /* Readonly Fields (Account Holder) - White Background */
-        .form-control:read-only,
-        .form-control[readonly] {
+        .form-control:read-only {
             background-color: #fff !important;
             opacity: 1;
         }
 
-        /* Info Box */
+        /* --- CUSTOM BANK DROPDOWN STYLING --- */
+        /* Mimics the floating label look */
+        .custom-select-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .custom-select-trigger {
+            height: 3.625rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            background: #fff;
+            padding: 1.625rem 0.75rem 0.625rem 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        /* Floating label simulation */
+        .custom-select-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 1rem 0.75rem;
+            pointer-events: none;
+            color: #6c757d;
+            transform-origin: 0 0;
+            transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+            font-size: 1rem;
+        }
+
+        /* When value is selected or active, mimic Bootstrap floating label transform */
+        .custom-select-container.has-value .custom-select-label,
+        .custom-select-container.active .custom-select-label {
+            transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+            color: #6c757d; /* Keep gray usually, or blue if active */
+        }
+
+        /* Active state (Blue Border) matches Screenshot */
+        .custom-select-container.active .custom-select-trigger {
+            border-color: #0075C9; /* Sanlam Blue or Tyme Blue */
+            box-shadow: 0 0 0 0.25rem rgba(0, 117, 201, 0.25);
+        }
+        .custom-select-container.active .custom-select-label {
+            color: #0075C9;
+        }
+
+        /* The Options Dropdown */
+        .custom-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            z-index: 999;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none; /* Hidden by default */
+        }
+
+        .custom-select-container.active .custom-options {
+            display: block;
+            border-color: #0075C9;
+        }
+
+        .custom-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .custom-option:hover {
+            background-color: #f8f9fa;
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+        }
+
+        .bank-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: contain;
+            border: 1px solid #eee; /* Subtle border for white logos */
+        }
+
+        .arrow-icon {
+            transition: transform 0.2s;
+        }
+        .custom-select-container.active .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        /* --- OTHER STYLES --- */
         .info-box-blue {
             background-color: #2672bf;
             color: white;
@@ -88,11 +182,7 @@ if($activationid) {
             font-size: 0.95rem;
             line-height: 1.4;
         }
-        .info-box-blue .bi {
-            font-size: 1.3rem;
-            margin-right: 12px;
-            margin-top: -2px;
-        }
+        .info-box-blue .bi { font-size: 1.3rem; margin-right: 12px; margin-top: -2px; }
 
         .section-title {
             font-size: 1.1rem;
@@ -100,18 +190,6 @@ if($activationid) {
             color: #212529;
             margin-top: 1.5rem;
             margin-bottom: 0.75rem;
-        }
-
-        .form-check-input {
-            width: 1.3em;
-            height: 1.3em;
-            margin-top: 0.1em;
-            border: 2px solid #6c757d;
-        }
-        .form-check-label {
-            margin-left: 0.5rem;
-            font-size: 0.95rem;
-            color: #212529;
         }
 
         .progress-step-gap { margin-right: 2px; }
@@ -162,7 +240,7 @@ if($activationid) {
                         </div>
                     </div>
 
-                    <form action="_payment.php" method="post" class="needs-validation" novalidate>
+                    <form action="_payment.php" method="post" class="needs-validation" id="paymentForm" novalidate>
 
                         <div class="form-floating mb-4">
                             <select name="source_of_funds" class="form-select" id="source_of_funds" required>
@@ -187,9 +265,9 @@ if($activationid) {
                             <div class="invalid-feedback">Valid account number required.</div>
                         </div>
 
-                        <div class="form-floating mb-4">
-                            <select name="bank" class="form-select" id="bank" required>
-                                <option value="" selected disabled>Select bank...</option>
+                        <div class="mb-4 position-relative">
+                            <select name="bank" id="realBankSelect" class="d-none" required>
+                                <option value=""></option>
                                 <option value="ABSA">ABSA</option>
                                 <option value="ACCESSBANK">Access Bank</option>
                                 <option value="AFRICANBANK">African Bank</option>
@@ -200,19 +278,67 @@ if($activationid) {
                                 <option value="SBSA">Standard Bank</option>
                                 <option value="TYMEBANK">Tyme Bank</option>
                             </select>
-                            <label for="bank">Bank name</label>
-                        </div>
 
+                            <div class="custom-select-container" id="customBankDropdown">
+                                <div class="custom-select-label">Bank name</div>
+                                <div class="custom-select-trigger">
+                                    <div class="d-flex align-items-center" id="selectedBankDisplay">
+                                    </div>
+                                    <i class="bi bi-chevron-down arrow-icon text-primary"></i>
+                                </div>
+
+                                <div class="custom-options">
+                                    <div class="custom-option" data-value="ABSA">
+                                        <img src="img/banks/absa.png" class="bank-logo" alt="ABSA">
+                                        <span>ABSA</span>
+                                    </div>
+                                    <div class="custom-option" data-value="ACCESSBANK">
+                                        <img src="img/banks/access.png" class="bank-logo" alt="Access">
+                                        <span>Access Bank</span>
+                                    </div>
+                                    <div class="custom-option" data-value="AFRICANBANK">
+                                        <img src="img/banks/africanbank.png" class="bank-logo" alt="African Bank">
+                                        <span>African Bank</span>
+                                    </div>
+                                    <div class="custom-option" data-value="CAPITEC">
+                                        <img src="img/banks/capitec.png" class="bank-logo" alt="Capitec">
+                                        <span>Capitec Bank</span>
+                                    </div>
+                                    <div class="custom-option" data-value="FINBOND">
+                                        <img src="img/banks/finbond.png" class="bank-logo" alt="Finbond">
+                                        <span>Finbond Mutual Bank</span>
+                                    </div>
+                                    <div class="custom-option" data-value="FNB">
+                                        <img src="img/banks/fnb.png" class="bank-logo" alt="FNB">
+                                        <span>FNB</span>
+                                    </div>
+                                    <div class="custom-option" data-value="NEDBANK">
+                                        <img src="img/banks/nedbank.png" class="bank-logo" alt="Nedbank">
+                                        <span>Nedbank</span>
+                                    </div>
+                                    <div class="custom-option" data-value="SBSA">
+                                        <img src="img/banks/standardbank.png" class="bank-logo" alt="Standard Bank">
+                                        <span>Standard Bank</span>
+                                    </div>
+                                    <div class="custom-option" data-value="TYMEBANK">
+                                        <img src="img/banks/tymebank.png" class="bank-logo" alt="TymeBank">
+                                        <span>Tyme Bank</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback d-block" id="bankError" style="display:none !important;">Please select a bank.</div>
+                        </div>
                         <div class="d-flex mb-4 p-2">
                             <div class="me-3">
                                 <input type="checkbox" name="payment_terms" class="form-check-input" id="payment_terms" required>
                             </div>
                             <div>
                                 <label class="form-check-label lh-sm" for="payment_terms">
-                                    I confirm this once-off payment of <strong>R<?php echo htmlspecialchars($product_price); ?></strong> via debit order.<br><br>
-                                    Please check your banking app for your DebiCheck confirmation. We will collect payment unless you reject the DebiCheck mandate.<br><br>
-                                    This payment will appear on your bank statement with the reference <strong>UBELONG <?php echo htmlspecialchars($serialno); ?></strong>.
+                                    I confirm this once-off payment of <strong>R<?php echo htmlspecialchars($product_price); ?></strong> via debit order.
                                 </label>
+                                <div class="text-muted small mt-2">
+                                    This payment will appear on your bank statement with the reference <strong>UBELONG <?php echo htmlspecialchars($serialno); ?></strong>.
+                                </div>
                                 <div class="invalid-feedback">You must confirm the payment terms.</div>
                             </div>
                         </div>
@@ -233,7 +359,7 @@ if($activationid) {
 
                     </form>
 
-                    <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets, a Licenced Life Insurer & Authorised FSP (11230)</p>
+                    <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets</p>
                 </div>
             </div>
         </div>
@@ -255,5 +381,58 @@ if($activationid) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="form-validation.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('customBankDropdown');
+        const trigger = container.querySelector('.custom-select-trigger');
+        const display = document.getElementById('selectedBankDisplay');
+        const realSelect = document.getElementById('realBankSelect');
+        const options = container.querySelectorAll('.custom-option');
+        const errorMsg = document.getElementById('bankError');
+
+        // Toggle dropdown
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            container.classList.toggle('active');
+        });
+
+        // Handle selection
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                const html = this.innerHTML; // Get logo and text
+
+                // Update Visuals
+                display.innerHTML = html;
+                container.classList.remove('active');
+                container.classList.add('has-value');
+
+                // Update Hidden Input
+                realSelect.value = value;
+
+                // Hide error if present
+                errorMsg.style.setProperty('display', 'none', 'important');
+            });
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!container.contains(e.target)) {
+                container.classList.remove('active');
+            }
+        });
+
+        // Form Validation Hook (Manual check for bank)
+        const form = document.getElementById('paymentForm');
+        form.addEventListener('submit', function(event) {
+            if (!realSelect.value) {
+                errorMsg.style.setProperty('display', 'block', 'important');
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        });
+    });
+</script>
 </body>
 </html>
