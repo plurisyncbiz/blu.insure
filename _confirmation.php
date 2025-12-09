@@ -111,8 +111,6 @@ if (isset($response['type']) && $response['type'] == 'error') {
 // 7. FINAL REDIRECT
 // This is the end of the flow. Redirect to a Thank You page.
 $location = $site_url . '/review.php?id=' . $id;
-
-die($location);
 header('Location: ' . $location);
 exit();
 ?>
