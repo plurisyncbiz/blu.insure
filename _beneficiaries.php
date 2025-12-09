@@ -34,6 +34,8 @@ $product_name = $_SESSION['serial_data']['product_name'] ?? 'Unknown';
 $product_type = $_SESSION['serial_data']['product_type'] ?? 'Unknown';
 $activationid = $_SESSION['serial_data']['activationid'] ?? '';
 
+die($product_type);
+
 // 4. PREPARE & VALIDATE INPUTS
 $names    = $_POST['beneficiary_name'] ?? [];
 $surnames = $_POST['beneficiary_surname'] ?? [];
