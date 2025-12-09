@@ -136,7 +136,7 @@ require_once '_bootstrap.php';
                         <div class="col mb-3">
                             <div class="form-floating">
                                 <input name="beneficiary_idno[]" type="text" class="form-control form-control-lg" inputmode="numeric" placeholder="South African ID number">
-                                <label>South African ID</label>
+                                <label>South African ID number</label>
                                 <small class="text-muted">Optional</small>
                             </div>
                         </div>
