@@ -7,26 +7,29 @@ require_once '_bootstrap.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
     <title>Activate your Prepaid Funeral Policy</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
+        body { font-family: 'Roboto', sans-serif; }
 
+        /* Consistency for Inputs */
         .form-floating>.form-control,
         .form-floating>.form-select {
-            height: calc(2.25rem + 30px) !important;
+            height: calc(3.5rem + 2px) !important;
+            line-height: 1.25;
+        }
+        .form-floating>label {
+            padding: 1rem 0.75rem;
         }
 
+        /* Card Styling */
         .contact-card {
             position: relative;
             padding: 20px 12px 12px 12px;
@@ -47,15 +50,14 @@ require_once '_bootstrap.php';
             color: #fff;
             font-size: 0.95rem;
         }
+        .progress-step-gap { margin-right: 2px; }
 
-        .form-floating>label {
-            padding: .5rem .5rem !important;
-        }
-        .progress-step-gap {
-            margin-right: 2px;
-        }
-
+        /* Datepicker Tweaks to match Bootstrap 5 */
+        .datepicker { font-family: 'Roboto', sans-serif; font-size: 0.95rem; }
+        .datepicker table tr td.active { background-color: #0075C9 !important; }
+        .input-group-text { background-color: white; border-left: 0; }
     </style>
+
     <link href="form-validation.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -123,27 +125,12 @@ require_once '_bootstrap.php';
                             </div>
                         </div>
 
-                        <div class="col mb-3 dob-container">
-                            <label class="form-label text-muted small ps-1">Date of Birth</label>
-                            <div class="row g-2">
-                                <div class="col-3">
-                                    <select class="form-select form-select-lg dob-day" required>
-                                        <option value="" selected>Day</option>
-                                    </select>
-                                </div>
-                                <div class="col-5">
-                                    <select class="form-select form-select-lg dob-month" required>
-                                        <option value="" selected>Month</option>
-                                    </select>
-                                </div>
-                                <div class="col-4">
-                                    <select class="form-select form-select-lg dob-year" required>
-                                        <option value="" selected>Year</option>
-                                    </select>
-                                </div>
+                        <div class="col mb-3">
+                            <div class="form-floating">
+                                <input type="text" name="beneficiary_dob[]" class="form-control form-control-lg datepicker-input" placeholder="YYYY-MM-DD" required readonly style="background-color: #fff;">
+                                <label>Date of Birth</label>
+                                <div class="invalid-feedback">Valid date of birth is required.</div>
                             </div>
-                            <input type="hidden" name="beneficiary_dob[]" class="real-dob-input" required>
-                            <div class="invalid-feedback">Valid date of birth is required.</div>
                         </div>
 
                         <div class="col mb-3">
@@ -208,10 +195,10 @@ require_once '_bootstrap.php';
 </footer>
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="form-validation.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="form-validation.js"></script>
 
 <script>
     $(function(){
@@ -242,10 +229,20 @@ require_once '_bootstrap.php';
             $clone.find('input, select, textarea').removeAttr('id');
             $clone.find('label').removeAttr('for');
 
-            // Populate Date Dropdowns for this specific card
-            populateDateDropdowns($clone);
-
             $container.append($clone);
+
+            // Initialize Datepicker on the new input
+            // We use 'autoclose' so it feels like a native selector
+            $clone.find('.datepicker-input').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true,
+                startView: 2, // Start at 'Year' view for faster selection of birth years
+                maxViewMode: 2,
+                endDate: '0d', // Cannot select future dates
+                container: 'body' // Helps with scrolling/positioning issues on mobile
+            });
+
             updateInfoBox();
         }
 
@@ -255,47 +252,6 @@ require_once '_bootstrap.php';
                     $(this).find('.info-box').removeClass('d-none');
                 } else {
                     $(this).find('.info-box').addClass('d-none');
-                }
-            });
-        }
-
-        // --- NEW DATE LOGIC ---
-        function populateDateDropdowns(card) {
-            var $day = card.find('.dob-day');
-            var $month = card.find('.dob-month');
-            var $year = card.find('.dob-year');
-            var $realInput = card.find('.real-dob-input');
-
-            // 1. Fill Days (1-31)
-            for (var i = 1; i <= 31; i++) {
-                var val = i < 10 ? '0' + i : i;
-                $day.append('<option value="' + val + '">' + i + '</option>');
-            }
-
-            // 2. Fill Months (Jan-Dec)
-            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            for (var i = 0; i < 12; i++) {
-                var mVal = (i + 1) < 10 ? '0' + (i + 1) : (i + 1);
-                $month.append('<option value="' + mVal + '">' + months[i] + '</option>');
-            }
-
-            // 3. Fill Years (Current Year down to 100 years ago)
-            var currentYear = new Date().getFullYear();
-            for (var i = currentYear; i >= currentYear - 100; i--) {
-                $year.append('<option value="' + i + '">' + i + '</option>');
-            }
-
-            // 4. Listen for changes
-            card.find('.dob-day, .dob-month, .dob-year').on('change', function() {
-                var d = $day.val();
-                var m = $month.val();
-                var y = $year.val();
-
-                // Only update the hidden input if all 3 are selected
-                if(d && m && y) {
-                    $realInput.val(y + '-' + m + '-' + d);
-                } else {
-                    $realInput.val('');
                 }
             });
         }
