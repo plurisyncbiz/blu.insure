@@ -61,7 +61,7 @@ require_once '_bootstrap.php';
                         cover for <?php echo htmlspecialchars($term); ?> Months at a once-off payment of R<?php echo htmlspecialchars($product_price); ?>
                     </p>
 
-                    <p class="lead">Complete your personal details to activate your policy</p>
+                    <p class="lead">Complete your personal details.</p>
 
                     <div class="d-flex align-items-start p-3 rounded text-white fs-6" style="background-color: #0075C9;">
                         <i class="bi bi-info-circle-fill fs-3 me-3"></i>
@@ -78,7 +78,7 @@ require_once '_bootstrap.php';
                             <div class="form-floating">
                                 <input type="text" name="policy_holder_name" class="form-control form-control-lg" id="name" placeholder="First Name" required>
                                 <label for="name" class="form-label">First names</label>
-                                <small class="text-muted">same as your ID</small>
+                                <small class="text-muted">Same as your ID</small>
                                 <div class="invalid-feedback">Valid first name(s) are required.</div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@ require_once '_bootstrap.php';
                             <div class="form-floating">
                                 <input type="text" name="policy_holder_surname" class="form-control form-control-lg" id="surname" placeholder="Surname" required>
                                 <label for="surname" class="form-label">Surname</label>
-                                <small class="text-muted">same as your ID</small>
+                                <small class="text-muted">Same as your ID</small>
                                 <div class="invalid-feedback">Valid surname is required.</div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ require_once '_bootstrap.php';
                                 <div class="form-control form-control-lg text-muted bg-light pt-3">
                                     <?php echo htmlspecialchars($cellno); ?>
                                 </div>
-                                <label for="cellno" class="form-label">Cellphone Number</label>
+                                <label for="cellno" class="form-label">Cellphone number</label>
                                 <p class="fs-6 pt-1 text-muted"><small>This number is linked to your policy and cannot be changed here.</small></p>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ require_once '_bootstrap.php';
                             <div class="form-floating">
                                 <input type="email" name="policy_holder_email" class="form-control form-control-lg" id="email" placeholder="Email">
                                 <label for="email" class="form-label">Email address</label>
-                                <small class="text-muted">optional</small>
+                                <small class="text-muted">Optional</small>
                             </div>
                         </div>
 
