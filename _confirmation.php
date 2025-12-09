@@ -101,15 +101,13 @@ curl_close($ch);
 
 $response = json_decode($jsonResponse, true);
 
-die(print_r($response));
-
 // Check API Response
 if (isset($response['type']) && $response['type'] == 'error') {
     $location = 'error.php?st=400&error=' . urlencode($response['description']);
     header('Location: ' . $location);
     exit();
 }
-
+die(print_r($response));
 // 7. FINAL REDIRECT
 // This is the end of the flow. Redirect to a Thank You page.
 $location = $site_url . '/review.php?id=' . $id;
