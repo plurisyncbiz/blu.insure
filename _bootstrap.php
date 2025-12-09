@@ -128,6 +128,8 @@ $product_price       = $serial_data['product_price'] ?? '0.00';
 $activationid        = $serial_data['activationid'] ?? null;
 $serialno            = $serial_data['serialno'] ?? null;
 
+die(print_r($serial_data, true));
+
 // Handle Product Configuration JSON safely
 $config_raw = $serial_data['product_configuration'] ?? '{}';
 $options    = is_array($config_raw) ? $config_raw : json_decode($config_raw, true);
