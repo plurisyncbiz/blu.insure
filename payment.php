@@ -289,23 +289,23 @@ if($activationid) {
 
                                 <div class="custom-options">
                                     <div class="custom-option" data-value="ABSA">
-                                        <img src="img/banks/absa.png" class="bank-logo" alt="ABSA">
+                                        <img src="img/absa_logo.png" class="bank-logo" alt="ABSA">
                                         <span>ABSA</span>
                                     </div>
                                     <div class="custom-option" data-value="ACCESSBANK">
-                                        <img src="img/banks/access.png" class="bank-logo" alt="Access">
+                                        <img src="img/access_logo.png" class="bank-logo" alt="Access">
                                         <span>Access Bank</span>
                                     </div>
                                     <div class="custom-option" data-value="AFRICANBANK">
-                                        <img src="img/banks/africanbank.png" class="bank-logo" alt="African Bank">
+                                        <img src="img/ab_logo.jpeg" class="bank-logo" alt="African Bank">
                                         <span>African Bank</span>
                                     </div>
                                     <div class="custom-option" data-value="CAPITEC">
-                                        <img src="img/banks/capitec.png" class="bank-logo" alt="Capitec">
+                                        <img src="img/capaitec_logo.png" class="bank-logo" alt="Capitec">
                                         <span>Capitec Bank</span>
                                     </div>
                                     <div class="custom-option" data-value="FINBOND">
-                                        <img src="img/banks/finbond.png" class="bank-logo" alt="Finbond">
+                                        <img src="img/finbond_logo.png" class="bank-logo" alt="Finbond">
                                         <span>Finbond Mutual Bank</span>
                                     </div>
                                     <div class="custom-option" data-value="FNB">
@@ -313,15 +313,15 @@ if($activationid) {
                                         <span>FNB</span>
                                     </div>
                                     <div class="custom-option" data-value="NEDBANK">
-                                        <img src="img/banks/nedbank.png" class="bank-logo" alt="Nedbank">
+                                        <img src="img/nedbank_logo.png" class="bank-logo" alt="Nedbank">
                                         <span>Nedbank</span>
                                     </div>
                                     <div class="custom-option" data-value="SBSA">
-                                        <img src="img/banks/standardbank.png" class="bank-logo" alt="Standard Bank">
+                                        <img src="img/sbsa_logo.jpeg" class="bank-logo" alt="Standard Bank">
                                         <span>Standard Bank</span>
                                     </div>
                                     <div class="custom-option" data-value="TYMEBANK">
-                                        <img src="img/banks/tymebank.png" class="bank-logo" alt="TymeBank">
+                                        <img src="img/tyme_logo.jpeg" class="bank-logo" alt="TymeBank">
                                         <span>Tyme Bank</span>
                                     </div>
                                 </div>
