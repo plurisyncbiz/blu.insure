@@ -66,7 +66,6 @@ for ($i = 0; $i < count($names); $i++) {
     if (empty($currName))    $errors[] = "Beneficiary $idx: First Name is required.";
     if (empty($currSurname)) $errors[] = "Beneficiary $idx: Surname is required.";
     if (empty($currDob))     $errors[] = "Beneficiary $idx: Date of Birth is required.";
-    if (empty($currGender))  $errors[] = "Beneficiary $idx: Gender is required.";
 
     // Optional Validation
     if (!empty($currId) && !preg_match('/^\d{13}$/', $currId)) {

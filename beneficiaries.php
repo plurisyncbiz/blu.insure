@@ -159,7 +159,7 @@ require_once '_bootstrap.php';
 
                               <div class="col mb-3 mt-4">
                                   <div class="form-floating">
-                                      <input name="beneficiary_name[]" type="text" class="form-control form-control-lg" placeholder="First Name" required>
+                                      <input name="beneficiary_name[]" type="text" class="form-control form-control-lg" placeholder="First Names" required>
                                       <label>First name</label>
                                       <div class="invalid-feedback">Valid first name is required.</div>
                                   </div>
@@ -180,27 +180,16 @@ require_once '_bootstrap.php';
                               </div>
                               <div class="col mb-3">
                                   <div class="form-floating">
-                                      <select name="beneficiary_gender[]" class="form-select form-select-lg" required>
-                                          <option value=""></option>
-                                          <option value="female">Female</option>
-                                          <option value="male">Male</option>
-                                      </select>
-                                      <label>Choose Gender</label>
-                                      <div class="invalid-feedback">Valid gender is required.</div>
-                                  </div>
-                              </div>
-                              <div class="col mb-3">
-                                  <div class="form-floating">
-                                      <input name="beneficiary_idno[]" type="text" class="form-control form-control-lg" inputmode="numeric" placeholder="South African Identity Number">
+                                      <input name="beneficiary_idno[]" type="text" class="form-control form-control-lg" inputmode="numeric" placeholder="South African ID number">
                                       <label>South African ID</label>
                                       <small class="text-muted">optional</small>
                                   </div>
                               </div>
                               <div class="col mb-3">
                                   <div class="form-floating">
-                                      <input name="beneficiary_cellno[]" type="text" class="form-control form-control-lg" placeholder="0831231234" inputmode="numeric" pattern="^0(6[012345678][0-9]{7}|7[1234689][0-9]{7}|8[1234][0-9]{7})$">
+                                      <input name="beneficiary_cellno[]" type="tel" class="form-control form-control-lg" placeholder="0831231234" inputmode="numeric" pattern="^0(6[012345678][0-9]{7}|7[1234689][0-9]{7}|8[1234][0-9]{7})$">
                                       <label>Cellphone number</label>
-                                      <small class="text-muted">optional</small>
+                                      <small class="text-muted">Optional</small>
                                       <div class="invalid-feedback">Must be a valid SA cell number (10 digits).</div>
                                   </div>
                               </div>
@@ -208,7 +197,7 @@ require_once '_bootstrap.php';
                                   <div class="form-floating">
                                       <input name="beneficiary_email[]" type="email" class="form-control form-control-lg" placeholder="you@you.com">
                                       <label>Email address</label>
-                                      <small class="text-muted">optional</small>
+                                      <small class="text-muted">Optional</small>
                                       <div class="invalid-feedback">Please enter a valid email.</div>
                                   </div>
                               </div>
