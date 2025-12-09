@@ -87,8 +87,6 @@ if (!$is_cached) {
         // Call Live API
         $url = $_ENV['API_URL'] . '/serial/' . $id;
 
-        die(print_r($url, true));
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -137,6 +135,8 @@ $options    = is_array($config_raw) ? $config_raw : json_decode($config_raw, tru
 
 $term       = $options['term'] ?? '0';
 $cover      = $options['cover'] ?? '0';
+
+die(print_r($serial_data, true));
 
 // Check if already activated (Logic Gate)
 if (!$activationid && strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
