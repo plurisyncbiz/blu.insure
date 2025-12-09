@@ -87,6 +87,8 @@ if (!$is_cached) {
         // Call Live API
         $url = $_ENV['API_URL'] . '/serial/' . $id;
 
+        echo $url;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
