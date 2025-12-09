@@ -233,7 +233,7 @@ if($activationid) {
 
                     </form>
 
-                    <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets</p>
+                    <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets, a Licenced Life Insurer & Authorised FSP (11230)</p>
                 </div>
             </div>
         </div>
