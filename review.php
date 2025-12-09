@@ -13,37 +13,14 @@ if(!$id){
     exit();
 }
 
-// 3. FETCH SERIAL DATA (To get Activation ID & Config)
-$static = array('10001', '10002', '10003', '10004', '10005', '10006', '10007', '10008','10009');
-$json = false;
+// 3. FETCH SERIAL DATA (Using Bootstrap Helper)
+$data = getSerialData($id);
 
-// Env fallback
-$api_base = $_ENV['API_URL'] ?? 'https://api.blu.insure';
-
-if(in_array($id, $static)){
-    $location = 'data/' . $id . '.json';
-    if(file_exists($location)){
-        $json = file_get_contents($location);
-    }
-} else {
-    $url = $api_base . '/serial/' . $id;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    $json = curl_exec($ch);
-    if (curl_errno($ch)) {
-        // Handle error silently
-    }
-    curl_close($ch);
-}
-
-if(!$json){
-    header('Location: error.php?st=500&error=API Error');
+if(!$data){
+    header('Location: error.php?st=500&error=API Error or Data Not Found');
     exit;
 }
 
-$data = json_decode($json, true);
 $activationid = $data['data'][0]['activationid'] ?? null;
 
 if(!$activationid){
@@ -51,8 +28,9 @@ if(!$activationid){
     exit;
 }
 
-// 4. FETCH POLICY DETAILS (To get Holder & Beneficiaries)
-$policy_details = getPolicyDetails($activationid, $api_base);
+// 4. FETCH POLICY DETAILS (Using Bootstrap Helper)
+// We remove the $api_base argument as the bootstrap function handles the env var
+$policy_details = getPolicyDetails($activationid);
 
 if(!$policy_details || !isset($policy_details['data'])){
     header('Location: error.php?st=500&error=Could not fetch policy details');
@@ -61,7 +39,7 @@ if(!$policy_details || !isset($policy_details['data'])){
 
 $policy_data = $policy_details['data'];
 
-// 5. ASSIGN VARIABLES (With safety checks)
+// 5. ASSIGN VARIABLES
 $product_code = (string) ($data['data'][0]['product_code'] ?? '');
 $cellno       = (string) ($data['data'][0]['cellno'] ?? '');
 $product_description = (string) ($data['data'][0]['product_name'] ?? '');
@@ -83,20 +61,7 @@ $email     = $policy_data['policy_holder']['email_address'] ?? '';
 // Beneficiaries
 $beneficiaries = $policy_data['beneficiaries'] ?? [];
 
-// Helper Function
-function getPolicyDetails($id, $api_base){
-    $url = $api_base . '/policy/details/' . $id;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    $json = curl_exec($ch);
-    if (curl_errno($ch)) {
-        return null;
-    }
-    curl_close($ch);
-    return json_decode($json, true);
-}
+// NOTE: The duplicate getPolicyDetails function has been removed from here
 ?>
 <!doctype html>
 <html lang="en">
