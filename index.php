@@ -35,7 +35,7 @@ require_once '_bootstrap.php';
                 <div class="container-fluid bg-white p-3">
                     <div class="d-flex align-items-center">
                         <img src="img/SanlamLogomark.png" alt="Sanlam Prepaid Funeral Cover" style="max-width: 30px;" class="me-4" />
-                        <span><?php echo $product_type; ?></span>
+                        <span><?php echo htmlspecialchars($product_description); ?></span>
                     </div>
                 </div>
                 <div class="col pt-0 pb-0 bg-white">
@@ -55,7 +55,7 @@ require_once '_bootstrap.php';
             <div class="col" id="payments_section">
                 <div class="col p-3" style="background-color: #ffffff;">
 
-                    <p class="mb-1 fw-bold"><?php echo htmlspecialchars($product_description); ?></p>
+                    <p class="mb-1 fw-bold"><?php echo $product_type; ?></p>
                     <p class="pb-1">
                         You are buying <span>R&nbsp;<?php echo number_format((float)$cover, 0, '.', ','); ?></span>
                         cover for <?php echo htmlspecialchars($term); ?> Months at a once-off payment of R<?php echo htmlspecialchars($product_price); ?>
