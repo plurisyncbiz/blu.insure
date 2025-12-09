@@ -62,7 +62,6 @@ if(in_array($id, $static)) {
     curl_close($ch);
     $data = json_decode($json, true);
 }
-die(print_r($data));
 
 if (!$data || (isset($data['type']) && $data['type'] == 'error')) {
     header('Location: error.php?st=404&error=Policy not found');
@@ -78,12 +77,6 @@ if (empty($activationid)) {
 
 // 5. PREPARE PAYLOAD
 // We are updating the policy to indicate if it is a replacement and confirming terms.
-$payload = array(
-    'activationid'       => $activationid,
-    'replacement_policy' => ($replacementVal == '1'), // Boolean true/false
-    'terms_accepted'     => true,
-    'acceptance_date'    => date('Y-m-d H:i:s')
-);
 
 // 6. SUBMIT TO API
 // Assuming a generic update endpoint or specific compliance endpoint.
@@ -94,7 +87,6 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $apiUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
 $jsonResponse = curl_exec($ch);
@@ -108,6 +100,8 @@ if (curl_errno($ch)) {
 curl_close($ch);
 
 $response = json_decode($jsonResponse, true);
+
+die(print_r($response));
 
 // Check API Response
 if (isset($response['type']) && $response['type'] == 'error') {
