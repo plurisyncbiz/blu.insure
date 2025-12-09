@@ -35,7 +35,7 @@ require_once '_bootstrap.php';
                 <div class="container-fluid bg-white p-3">
                     <div class="d-flex align-items-center">
                         <img src="img/SanlamLogomark.png" alt="Sanlam Prepaid Funeral Cover" style="max-width: 30px;" class="me-4" />
-                        <span><?php echo $product_description; ?></span>
+                        <span><?php echo $product_type; ?></span>
                     </div>
                 </div>
                 <div class="col pt-0 pb-0 bg-white">
