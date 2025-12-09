@@ -209,11 +209,10 @@ if($activationid) {
                             </div>
                             <div>
                                 <label class="form-check-label lh-sm" for="payment_terms">
-                                    I confirm this once-off payment of <strong>R<?php echo htmlspecialchars($product_price); ?></strong> via debit order.
-                                </label>
-                                <div class="text-muted small mt-2">
+                                    I confirm this once-off payment of <strong>R<?php echo htmlspecialchars($product_price); ?></strong> via debit order.<br><br>
+                                    Please check your banking app for your DebiCheck confirmation. We will collect payment unless you reject the DebiCheck mandate.<br><br>
                                     This payment will appear on your bank statement with the reference <strong>UBELONG <?php echo htmlspecialchars($serialno); ?></strong>.
-                                </div>
+                                </label>
                                 <div class="invalid-feedback">You must confirm the payment terms.</div>
                             </div>
                         </div>
