@@ -87,7 +87,8 @@ if (!$is_cached) {
         // Call Live API
         $url = $_ENV['API_URL'] . '/serial/' . $id;
 
-        echo $url;
+        die(print_r($url, true));
+
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -130,7 +131,6 @@ $product_price       = $serial_data['product_price'] ?? '0.00';
 $activationid        = $serial_data['activationid'] ?? null;
 $serialno            = $serial_data['serialno'] ?? null;
 
-die(print_r($serial_data, true));
 
 // Handle Product Configuration JSON safely
 $config_raw = $serial_data['product_configuration'] ?? '{}';
