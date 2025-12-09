@@ -1,56 +1,6 @@
 <?php
-// 1. PHP LOGIC & DATA FETCHING
-// Keep existing error reporting settings if needed for dev
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-$ip = $_SERVER['REMOTE_ADDR'];
-$id = (string)($_GET['id'] ?? ''); // Null coalescing for safety
-
-if(!$id){
-    header('Location: error.php?st=400&error=' . urlencode('Policy not activated or invalid link'));
-    exit();
-}
-
-// Data Fetching Logic
-$static = array('10001', '10002', '10003', '10004', '10005', '10006', '10007', '10008','10009');
-$json = false;
-
-if(in_array($id, $static)){
-    $location = 'data/' . $id . '.json';
-    if(file_exists($location)){
-        $json = file_get_contents($location);
-    }
-} else {
-    $url = 'https://api.blu.insure/serial/' . $id;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    // Added timeout for safety
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    $json = curl_exec($ch);
-    if (curl_errno($ch)) {
-        // Log error if needed
-    }
-    curl_close($ch);
-}
-
-// Redirect if no JSON data
-if(!$json){
-    header('Location: error.php?st=500&error=API Error');
-    exit;
-}
-
-$data = json_decode($json, true);
-
-// Safely access data
-$activationid = $data['data'][0]['activationid'] ?? null;
-
-if(!$activationid){
-    header('Location: error.php?st=404&error=Policy not activated or invalid link');
-    exit;
-}
+// Load the engine. If this fails, the page stops here.
+require_once '_bootstrap.php';
 
 // Helper Function for Policy Details
 function getPolicyDetails($activation_id) {
