@@ -36,6 +36,7 @@ $activationid = $_SESSION['serial_data']['activationid'] ?? '';
 
 die($product_type);
 
+
 // 4. PREPARE & VALIDATE INPUTS
 $names    = $_POST['beneficiary_name'] ?? [];
 $surnames = $_POST['beneficiary_surname'] ?? [];
