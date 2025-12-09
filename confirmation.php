@@ -14,8 +14,6 @@ require_once '_bootstrap.php';
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
 
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
@@ -101,9 +99,6 @@ require_once '_bootstrap.php';
 
     </style>
 
-
-
-
     <link href="form-validation.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -182,24 +177,26 @@ require_once '_bootstrap.php';
                             </div>
                         </div>
 
-                        <div id="replacementInfoBox" class="info-box mt-3 d-none">
-                            <i class="bi bi-info-circle-fill fs-3 me-3"></i>
-                            <div>If you cancelled this policy less than 30 days ago, or plan to cancel it within 30 days, send us your cancellation letter and policy schedule to qualify for reduced waiting periods.</div>
-                        </div>
+                        <div id="replacement_terms" class="d-none">
+                            <div id="replacementInfoBox" class="info-box mt-3">
+                                <i class="bi bi-info-circle-fill fs-3 me-3"></i>
+                                <div>If you cancelled this policy less than 30 days ago, or plan to cancel it within 30 days, send us your cancellation letter and policy schedule to qualify for reduced waiting periods.</div>
+                            </div>
 
-                        <p class="fw-bold pt-5">Don't have your previous policy documents?</p>
-                        <p class="pt-3">That's OK, you can still apply for prepaid funeral cover. Send us your documents within 31 days from today, or our standard waiting period will apply to your policy.</p>
-                        <p class="pt-3 pb-3">Send proof of cancellation to digitalfuneralsupport@sanlam.co.za</p>
-                        <div class="form-check mt-3 mb-5">
-                            <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" required>
-                            <label class="form-check-label" for="termsCheckbox">
-                                I have read and agree to the
-                                <a href="#" class="text-decoration-underline" data-bs-toggle="modal" data-bs-target="#termsModal" onclick="event.stopPropagation()">
-                                    Terms and Conditions
-                                </a> about the product
-                            </label>
-                            <div class="invalid-feedback">
-                                You must accept the terms to proceed.
+                            <p class="fw-bold pt-5">Don't have your previous policy documents?</p>
+                            <p class="pt-3">That's OK, you can still apply for prepaid funeral cover. Send us your documents within 31 days from today, or our standard waiting period will apply to your policy.</p>
+                            <p class="pt-3 pb-3">Send proof of cancellation to digitalfuneralsupport@sanlam.co.za</p>
+                            <div class="form-check mt-3 mb-5">
+                                <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" required>
+                                <label class="form-check-label" for="termsCheckbox">
+                                    I have read and agree to the
+                                    <a href="#" class="text-decoration-underline" data-bs-toggle="modal" data-bs-target="#termsModal" onclick="event.stopPropagation()">
+                                        Terms and Conditions
+                                    </a> about the product
+                                </label>
+                                <div class="invalid-feedback">
+                                    You must accept the terms to proceed.
+                                </div>
                             </div>
                         </div>
 
@@ -323,7 +320,8 @@ require_once '_bootstrap.php';
     function selectOnly(id) {
         var yes = document.getElementById("checkYes");
         var no = document.getElementById("checkNo");
-        var infoBox = document.getElementById("replacementInfoBox");
+        // Target the Main DIV Wrapper instead of just the info box
+        var replacementContainer = document.getElementById("replacement_terms");
 
         // If the user clicked Yes, uncheck No
         if (id === 'checkYes' && yes.checked) {
@@ -334,12 +332,12 @@ require_once '_bootstrap.php';
             yes.checked = false;
         }
 
-        // Toggle Info Box Visibility
+        // Toggle Visibility of the entire container
         // Show only if YES is checked
         if (yes.checked) {
-            infoBox.classList.remove('d-none');
+            replacementContainer.classList.remove('d-none');
         } else {
-            infoBox.classList.add('d-none');
+            replacementContainer.classList.add('d-none');
         }
     }
 </script>
