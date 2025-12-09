@@ -323,7 +323,7 @@ $beneficiaries = $policy_data['beneficiaries'] ?? [];
                                 <button type="button" id="addContact" class="w-100 btn btn-outline-primary btn-lg" style="background-color: #ffffff !important; border-color: #0075C9 !important; color: #0075C9;" onclick="history.back()">Back</button>
                             </div>
                         </div>
-                        <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets</p>
+                        <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets, a Licenced Life Insurer & Authorised FSP (11230)</p>
 
                     </form>
                 </div>
