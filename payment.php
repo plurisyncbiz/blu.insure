@@ -309,7 +309,7 @@ if($activationid) {
                                         <span>Finbond Mutual Bank</span>
                                     </div>
                                     <div class="custom-option" data-value="FNB">
-                                        <img src="img/banks/fnb.png" class="bank-logo" alt="FNB">
+                                        <img src="img/fnb_logo.png" class="bank-logo" alt="FNB">
                                         <span>FNB</span>
                                     </div>
                                     <div class="custom-option" data-value="NEDBANK">
