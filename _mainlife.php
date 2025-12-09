@@ -94,7 +94,7 @@ $next_page = 'error.php?error=unknown_product_route';
 
 // Modern PHP Match (PHP 8.0+) or Switch
 switch ($product_type) {
-    case 'Sanlam Individual Funeral Cover':
+    case 'Individual Bundle':
         $next_page = 'beneficiaries.php';
         break;
 

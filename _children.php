@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo $json;
         } else {
             //redirect
-            if($product_description == 'Sanlam Individual Funeral Cover'){
+            if($product_description == 'Individual Bundle'){
                 //No dependents go directly to beneficiaries
                 $location = 'error.php';
             } elseif($product_description == 'Sanlam Family Funeral Cover') {

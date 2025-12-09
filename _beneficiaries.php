@@ -136,7 +136,7 @@ foreach ($validBeneficiaries as $beneficiary) {
 // 7. REDIRECT ON SUCCESS
 // USE ENV VARIABLE FOR REDIRECT DOMAIN
 switch ($product_type) {
-    case 'Sanlam Individual Funeral Cover':
+    case 'Individual Bundle':
         $location = $_ENV['SITE_URL'] . '/payment.php?id=' . $id;
         break;
 
