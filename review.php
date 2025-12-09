@@ -311,11 +311,9 @@ function getPolicyDetails($id, $api_base){
                                 </div>
                             </div>
 
-                            <hr class="mb-1 mt-2">
-                            <hr class="mt-1 mb-4">
-
-                            <h4 class="mb-4 fw-normal">Beneficiary details</h4>
+                            <h4 class="mb-4 fw-normal mt-4">Beneficiary details</h4>
                             <?php foreach($beneficiaries as $beneficiary){ ?>
+                                <hr class="my-2">
                                 <div class="beneficiary-block mb-3">
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -357,7 +355,7 @@ function getPolicyDetails($id, $api_base){
                                 <button type="submit" class="w-100 btn btn-primary btn-lg" style="background-color: #0075C9 !important; border-color: #0075C9 !important; color: white;">Submit Application</button>
                             </div>
                             <div class="col-12 mb-2">
-                                <button type="button" id="addContact" class="w-100 btn btn-outline-primary btn-lg" style="background-color: #ffffff !important; border-color: #0075C9 !important; color: #0075C9;">Back</button>
+                                <button type="button" id="addContact" class="w-100 btn btn-outline-primary btn-lg" style="background-color: #ffffff !important; border-color: #0075C9 !important; color: #0075C9;" onclick="history.back()">Back</button>
                             </div>
                         </div>
                         <p class="text-center small fw-semibold pt-5">Underwritten by Sanlam Developing Markets</p>
@@ -371,17 +369,18 @@ function getPolicyDetails($id, $api_base){
 </div>
 
 <footer class="my-5 pt-5 text-muted text-center text-small">
-    <?php if($_ENV['APP_ENV'] !== 'production'): ?>
-        <p style="font-size: 0.75em; color: red;">DEBUG: <?php print_r($serial_data); ?></p>
-    <?php endif; ?>
+    <p style="font-size: 0.75em;">
+        <?php if(isset($data) && isset($_GET['debug']) && $_GET['debug'] === 'true') print_r($data); ?>
+    </p>
 
-    <p class="mb-1">&copy; <?php echo date('Y'); ?> Blue Label Data Solutions (Pty) Ltd</p>
+    <p class="mb-1">&copy; 2025 Blue Label Data Solutions (Pty) Ltd</p>
     <ul class="list-inline">
         <li class="list-inline-item"><a href="#">Privacy</a></li>
         <li class="list-inline-item"><a href="#">Terms</a></li>
         <li class="list-inline-item"><a href="#">Support</a></li>
     </ul>
 </footer>
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -389,20 +388,6 @@ function getPolicyDetails($id, $api_base){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    function selectOnly(id) {
-        var yes = document.getElementById("checkYes");
-        var no = document.getElementById("checkNo");
-
-        // If the user clicked Yes, uncheck No
-        if (id === 'checkYes' && yes.checked) {
-            no.checked = false;
-        }
-        // If the user clicked No, uncheck Yes
-        if (id === 'checkNo' && no.checked) {
-            yes.checked = false;
-        }
-    }
-
     // Bootstrap form validation script
     (function () {
         'use strict'
