@@ -107,7 +107,7 @@ require_once '_bootstrap.php';
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control form-control-lg bg-light" id="cellno" placeholder="Cellphone" value="<?php echo htmlspecialchars($cellno); ?>" readonly>
                             <label for="cellno">Cellphone number</label>
-                            <div class="form-text">This number is linked to your policy and cannot be changed here.</div>
+                            <p class="fs-6 pt-1"><span class="text-decoration-underline">Why can't you edit this</span>? This is the number you used when activating your policy. Your cellphone number is the key to your policy. Please email us on info@blu.insure should you wish to change the cellphone number</p>
                         </div>
 
                         <div class="form-floating mb-3">
