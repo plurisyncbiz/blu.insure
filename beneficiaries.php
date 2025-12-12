@@ -248,6 +248,12 @@ require_once '_bootstrap.php';
                 container: 'body' // Helps with scrolling/positioning issues on mobile
             });
 
+            .on('changeDate', function() {
+                    // When a date is picked, manually hide the error if it's valid
+                    if(this.value) {
+                        $(this).removeClass('is-invalid').addClass('is-valid');
+                    }
+                });
             updateInfoBox();
         }
 
