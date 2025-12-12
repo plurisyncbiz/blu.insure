@@ -14,6 +14,7 @@ require_once '_bootstrap.php';
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
+    <link href="form-validation.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
@@ -52,27 +53,33 @@ require_once '_bootstrap.php';
         }
         .progress-step-gap { margin-right: 2px; }
 
-        /* Datepicker Tweaks to match Bootstrap 5 */
+        /* Datepicker Tweaks */
         .datepicker { font-family: 'Roboto', sans-serif; font-size: 0.95rem; }
         .datepicker table tr td.active { background-color: #0075C9 !important; }
         .input-group-text { background-color: white; border-left: 0; }
 
-        /* Hide the remove button on the first contact card only */
+        /* 1. Hide the remove button on the first contact card only */
         #contactsContainer .contact-card:first-child .remove-contact {
             display: none !important;
         }
 
-        /* Force validation error styles on readonly inputs (like Date of Birth) */
+        /* 2. FORCE VALIDATION ON READONLY INPUTS */
+
+        /* A. Show the Error Message Text */
+        .was-validated .form-control[readonly]:invalid ~ .invalid-feedback {
+            display: block !important;
+        }
+
+        /* B. Show the Red Border and Icon */
         .was-validated .form-control[readonly]:invalid {
             border-color: #dc3545 !important;
+            padding-right: calc(1.5em + 0.75rem);
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right calc(0.375em + 0.1875rem) center;
             background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
         }
     </style>
-
-    <link href="form-validation.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
@@ -239,14 +246,12 @@ require_once '_bootstrap.php';
 
         function addContact() {
             var $clone = $template.clone().removeClass('d-none');
-            // Remove IDs to avoid duplicates
             $clone.find('input, select, textarea').removeAttr('id');
             $clone.find('label').removeAttr('for');
 
             $container.append($clone);
 
-            // Initialize Datepicker on the new input
-            // FIX: Chain .on() immediately after .datepicker() without a semicolon in between
+            // Initialize Datepicker AND attach the change handler in one chain
             $clone.find('.datepicker-input').datepicker({
                 format: 'yyyy-mm-dd',
                 autoclose: true,
@@ -256,9 +261,11 @@ require_once '_bootstrap.php';
                 endDate: '0d',
                 container: 'body'
             }).on('changeDate', function() {
-                // When a date is picked, manually hide the error if it's valid
+                // Remove the error style immediately when a date is picked
                 if(this.value) {
                     $(this).removeClass('is-invalid').addClass('is-valid');
+                    // Also manually hide the validation feedback if it stuck around
+                    $(this).siblings('.invalid-feedback').hide();
                 }
             });
 
@@ -275,12 +282,14 @@ require_once '_bootstrap.php';
             });
         }
 
-        // Bootstrap validation
         var form = document.getElementById('beneficiariesForm');
         form.addEventListener('submit', function(event){
             if(!form.checkValidity()){
                 event.preventDefault();
                 event.stopPropagation();
+
+                // If the form is invalid, make sure we show the feedback messages again
+                $('.invalid-feedback').removeAttr('style');
             }
             form.classList.add('was-validated');
         });
