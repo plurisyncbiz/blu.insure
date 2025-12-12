@@ -1,3 +1,42 @@
+<?php
+// 1. Include your bootstrap (which defines $activationid)
+require_once '_bootstrap.php';
+
+// Ensure we actually have an ID to avoid errors
+if (!empty($activationid)) {
+
+    // 2. Prepare the API Call
+    // Adjust URL if your route is different
+    $url = $_ENV['API_URL'] . "/serial/confirmation/" . $activationid;
+
+    // Retrieve token (Assuming your bootstrap or session has the token)
+    // If you don't have it in a variable, you might need to generate one or fetch it from $_SESSION['token']
+    $bearerToken = $_SESSION['token'] ?? '';
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST  => 'POST', // We use POST to trigger the update
+            CURLOPT_TIMEOUT        => 10,
+            CURLOPT_HTTPHEADER     => [
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $bearerToken
+            ],
+    ]);
+
+    $response = curl_exec($curl);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    // Check for cURL errors
+    if (curl_errno($curl)) {
+        error_log("Confirmation Failed: " . curl_error($curl));
+    }
+
+    curl_close($curl);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
