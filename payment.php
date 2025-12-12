@@ -290,7 +290,6 @@ if($activationid) {
                                 <option value="FNB">FNB</option>
                                 <option value="NEDBANK">Nedbank</option>
                                 <option value="SBSA">Standard Bank</option>
-                                <option value="TYMEBANK">Tyme Bank</option>
                             </select>
 
                             <div class="custom-select-container" id="customBankDropdown">
@@ -333,10 +332,6 @@ if($activationid) {
                                     <div class="custom-option" data-value="SBSA">
                                         <img src="img/sbsa_logo.jpeg" class="bank-logo" alt="Standard Bank">
                                         <span>Standard Bank</span>
-                                    </div>
-                                    <div class="custom-option" data-value="TYMEBANK">
-                                        <img src="img/tyme_logo.jpeg" class="bank-logo" alt="TymeBank">
-                                        <span>Tyme Bank</span>
                                     </div>
                                 </div>
                             </div>
