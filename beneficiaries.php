@@ -246,23 +246,22 @@ require_once '_bootstrap.php';
             $container.append($clone);
 
             // Initialize Datepicker on the new input
-            // We use 'autoclose' so it feels like a native selector
+            // FIX: Chain .on() immediately after .datepicker() without a semicolon in between
             $clone.find('.datepicker-input').datepicker({
                 format: 'yyyy-mm-dd',
                 autoclose: true,
                 todayHighlight: true,
-                startView: 2, // Start at 'Year' view for faster selection of birth years
+                startView: 2,
                 maxViewMode: 2,
-                endDate: '0d', // Cannot select future dates
-                container: 'body' // Helps with scrolling/positioning issues on mobile
+                endDate: '0d',
+                container: 'body'
+            }).on('changeDate', function() {
+                // When a date is picked, manually hide the error if it's valid
+                if(this.value) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                }
             });
 
-            .on('changeDate', function() {
-                    // When a date is picked, manually hide the error if it's valid
-                    if(this.value) {
-                        $(this).removeClass('is-invalid').addClass('is-valid');
-                    }
-                });
             updateInfoBox();
         }
 
