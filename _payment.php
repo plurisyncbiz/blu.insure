@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $id = $_POST['id'] ?? '';
 
 // Load ENV variables
-// Fallback provided strictly for safety
 $api_base = $_ENV['API_URL'] ?? 'https://api.blu.insure';
 $site_url = $_ENV['SITE_URL'] ?? 'https://blu.insure';
 
@@ -78,11 +77,10 @@ $today = new DateTime();
 $tomorrow = $today->add(new DateInterval('P1D'));
 $debit_date = $tomorrow->format('Y-m-d');
 
-// Construct Payload
 $paymentPayload = array(
     'acc_no'       => $acc_no,
     'bank'         => $bank,
-    'branch_code'  => '', // Explicitly empty
+    'branch_code'  => '',
     'debit_date'   => $debit_date,
     'activationid' => $activationid,
 );
@@ -120,16 +118,34 @@ if (isset($paymentResponse['type']) && $paymentResponse['type'] == 'error') {
 
     // Payment Success -> Trigger Mandate
     try {
-        $mandateResponse = submit_mandate($activationid, $api_base);
+        // --- UPDATED LOGIC HERE ---
+        // We get the full response object back, including code and body
+        $mandateResult = submit_mandate($activationid, $api_base);
 
-        // Final Success Redirect
-        $location = $site_url . '/confirmation.php?id=' . $id;
-        header('Location: ' . $location);
-        exit();
+        // Check the HTTP Status Code directly
+        if ($mandateResult['code'] >= 200 && $mandateResult['code'] < 300) {
+
+            // SUCCESS
+            $location = $site_url . '/confirmation.php?id=' . $id;
+            header('Location: ' . $location);
+            exit();
+
+        } else {
+
+            // FAILURE (e.g. 409 Conflict / Mandate Error)
+            // We extract the specific error description from the API body
+            $errorMsg = $mandateResult['data']['description']
+                ?? $mandateResult['data']['message']
+                ?? 'Mandate processing failed';
+
+            $location = 'error.php?st=' . $mandateResult['code'] . '&error=' . urlencode('Mandate Error: ' . $errorMsg);
+            header('Location: ' . $location);
+            exit();
+        }
 
     } catch (RuntimeException $e) {
-        // Mandate Failed
-        $location = 'error.php?st=500&error=' . urlencode('Mandate Error: ' . $e->getMessage());
+        // Network/Critical Crashes only
+        $location = 'error.php?st=500&error=' . urlencode('System Error: ' . $e->getMessage());
         header('Location: ' . $location);
         exit();
     }
@@ -142,6 +158,7 @@ if (isset($paymentResponse['type']) && $paymentResponse['type'] == 'error') {
 
 /**
  * Helper function to submit the mandate
+ * UPDATED: Returns array ['code' => int, 'data' => array] instead of throwing exceptions on 4xx errors
  */
 function submit_mandate(string $activationid, string $api_base): array
 {
@@ -159,25 +176,27 @@ function submit_mandate(string $activationid, string $api_base): array
 
     $response = curl_exec($ch);
 
+    // Network level errors (DNS, Timeout) still throw exceptions
     if ($response === false) {
         $error = curl_error($ch);
         curl_close($ch);
-        throw new RuntimeException("cURL error: $error");
+        throw new RuntimeException("cURL connection error: $error");
     }
 
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    try {
-        $data = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-    } catch (JsonException $e) {
-        throw new RuntimeException("Invalid JSON response: " . $e->getMessage());
+    // Decode result safely
+    $data = json_decode($response, true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        // Fallback if API returned non-JSON string
+        $data = ['description' => 'Invalid JSON response from server', 'raw' => $response];
     }
 
-    if ($httpCode < 200 || $httpCode >= 300) {
-        throw new RuntimeException("API responded with HTTP $httpCode");
-    }
-
-    return $data;
+    // Return both code and data so the caller can decide logic
+    return [
+        'code' => $httpCode,
+        'data' => $data
+    ];
 }
 ?>
