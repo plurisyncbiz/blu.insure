@@ -56,6 +56,11 @@ require_once '_bootstrap.php';
         .datepicker { font-family: 'Roboto', sans-serif; font-size: 0.95rem; }
         .datepicker table tr td.active { background-color: #0075C9 !important; }
         .input-group-text { background-color: white; border-left: 0; }
+
+        /* Hide the remove button on the first contact card only */
+        #contactsContainer .contact-card:first-child .remove-contact {
+            display: none !important;
+        }
     </style>
 
     <link href="form-validation.css" rel="stylesheet">

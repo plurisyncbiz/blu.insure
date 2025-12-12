@@ -258,9 +258,16 @@ if($activationid) {
                         <div class="form-floating mb-4">
                             <select name="source_of_funds" class="form-select" id="source_of_funds" required>
                                 <option value="" selected disabled>Select source...</option>
+                                <option value="ALLOWANCE">Allowance</option>
+                                <option value="COMMISSION">Commission</option>
+                                <option value="GRANT">Disability / Social grant</option>
+                                <option value="INHERITANCE">Inheritance</option>
+                                <option value="LOAN">Loan</option>
+                                <option value="PENSION">Pension</option>
+                                <option value="RA">Retirement funds</option>
                                 <option value="SALARY">Salary</option>
                                 <option value="SAVINGS">Savings</option>
-                                <option value="INHERITANCE">Inheritance</option>
+                                <option value="SETTLEMENT">Settlement</option>
                             </select>
                             <label for="source_of_funds">Source of funds</label>
                         </div>

@@ -78,7 +78,7 @@ require_once '_bootstrap.php';
                         <i class="bi bi-info-circle-fill fs-3 me-3"></i>
                         <div>
                             <p class="mb-0 fon">
-                                Your prepaid <?php echo htmlspecialchars($product_description); ?> will be active for <?php echo htmlspecialchars($term); ?> months.
+                                Your <?php echo htmlspecialchars($product_description); ?> will be active for <?php echo htmlspecialchars($term); ?> months.
                             </p>
                         </div>
                     </div>

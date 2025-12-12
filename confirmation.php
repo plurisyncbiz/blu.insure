@@ -233,7 +233,7 @@ require_once '_bootstrap.php';
 
                                         <h5 class="fw-bold mt-4">Claims and payouts</h5>
                                         <ul>
-                                            <li>Most claims are assessed and paid within 4 business hours once we receive all necessary documents.</li>
+                                            <li>Most claims are assessed and paid within 24-48 business hours once we receive all necessary documents.</li>
                                             <li>Beneficiaries must have South African bank accounts in their name.</li>
                                             <li>Claims may be rejected if any information is false or incorrect.</li>
                                         </ul>
