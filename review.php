@@ -275,7 +275,7 @@ $beneficiaries = $policy_data['beneficiaries'] ?? [];
                                     <div class="value-text"><?php echo $id_number ?></div>
                                 </div>
                             </div>
-
+                            <hr class="my-4" style="border-top: 2px solid #333; opacity: 1;">
                             <h4 class="mb-4 fw-normal mt-4">Beneficiary details</h4>
                             <?php foreach($beneficiaries as $beneficiary){ ?>
                                 <hr class="my-2">
