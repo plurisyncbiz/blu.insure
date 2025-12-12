@@ -193,6 +193,19 @@ if($activationid) {
         }
 
         .progress-step-gap { margin-right: 2px; }
+
+        /* If the form has been validated and the hidden select is invalid, style the custom container */
+        .was-validated #realBankSelect:invalid + .custom-select-container,
+        #realBankSelect.is-invalid + .custom-select-container {
+            border-color: #dc3545; /* Bootstrap Danger Red */
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+
+        /* Ensure the error message displays correctly */
+        .was-validated #realBankSelect:invalid ~ .invalid-feedback,
+        #realBankSelect.is-invalid ~ .invalid-feedback {
+            display: block !important;
+        }
     </style>
 
     <link href="form-validation.css" rel="stylesheet">
@@ -266,7 +279,8 @@ if($activationid) {
                         </div>
 
                         <div class="mb-4 position-relative">
-                            <select name="bank" id="realBankSelect" class="d-none" required>
+                            <select name="bank" id="realBankSelect" required
+                                    style="position: absolute; opacity: 0; height: 0; width: 0; pointer-events: none;">
                                 <option value=""></option>
                                 <option value="ABSA">ABSA</option>
                                 <option value="ACCESSBANK">Access Bank</option>
@@ -390,6 +404,8 @@ if($activationid) {
         const display = document.getElementById('selectedBankDisplay');
         const realSelect = document.getElementById('realBankSelect');
         const options = container.querySelectorAll('.custom-option');
+        // We don't strictly need to grab errorMsg by ID anymore if we use the CSS above,
+        // but we keep it for safety.
         const errorMsg = document.getElementById('bankError');
 
         // Toggle dropdown
@@ -402,9 +418,8 @@ if($activationid) {
         options.forEach(option => {
             option.addEventListener('click', function() {
                 const value = this.getAttribute('data-value');
-                const html = this.innerHTML; // Get logo and text
+                const html = this.innerHTML;
 
-                // Update Visuals
                 display.innerHTML = html;
                 container.classList.remove('active');
                 container.classList.add('has-value');
@@ -412,26 +427,39 @@ if($activationid) {
                 // Update Hidden Input
                 realSelect.value = value;
 
-                // Hide error if present
-                errorMsg.style.setProperty('display', 'none', 'important');
+                // --- KEY FIX: Manually trigger a 'change' event ---
+                // This tells other scripts (like validation) that the value updated
+                const event = new Event('change');
+                realSelect.dispatchEvent(event);
+
+                // Hide error manually just in case
+                if(errorMsg) errorMsg.style.display = 'none';
             });
         });
 
-        // Close when clicking outside
+        // Close on click outside
         document.addEventListener('click', function(e) {
             if (!container.contains(e.target)) {
                 container.classList.remove('active');
             }
         });
 
-        // Form Validation Hook (Manual check for bank)
+        // Manual Validation Check
         const form = document.getElementById('paymentForm');
         form.addEventListener('submit', function(event) {
             if (!realSelect.value) {
-                errorMsg.style.setProperty('display', 'block', 'important');
                 event.preventDefault();
                 event.stopPropagation();
+
+                // Force the invalid state so CSS picks it up
+                realSelect.classList.add('is-invalid');
+                if(errorMsg) errorMsg.style.display = 'block';
+            } else {
+                realSelect.classList.remove('is-invalid');
             }
+
+            // Add Bootstrap's visual validation class to the form
+            form.classList.add('was-validated');
         });
     });
 </script>
