@@ -258,9 +258,16 @@ if($activationid) {
                         <div class="form-floating mb-4">
                             <select name="source_of_funds" class="form-select" id="source_of_funds" required>
                                 <option value="" selected disabled>Select source...</option>
+                                <option value="ALLOWANCE">Allowance</option>
+                                <option value="COMMISSION">Commission</option>
+                                <option value="GRANT">Disability / Social grant</option>
+                                <option value="INHERITANCE">Inheritance</option>
+                                <option value="LOAN">Loan</option>
+                                <option value="PENSION">Pension</option>
+                                <option value="RA">Retirement funds</option>
                                 <option value="SALARY">Salary</option>
                                 <option value="SAVINGS">Savings</option>
-                                <option value="INHERITANCE">Inheritance</option>
+                                <option value="SETTLEMENT">Settlement</option>
                             </select>
                             <label for="source_of_funds">Source of funds</label>
                         </div>
@@ -290,7 +297,6 @@ if($activationid) {
                                 <option value="FNB">FNB</option>
                                 <option value="NEDBANK">Nedbank</option>
                                 <option value="SBSA">Standard Bank</option>
-                                <option value="TYMEBANK">Tyme Bank</option>
                             </select>
 
                             <div class="custom-select-container" id="customBankDropdown">
@@ -333,10 +339,6 @@ if($activationid) {
                                     <div class="custom-option" data-value="SBSA">
                                         <img src="img/sbsa_logo.jpeg" class="bank-logo" alt="Standard Bank">
                                         <span>Standard Bank</span>
-                                    </div>
-                                    <div class="custom-option" data-value="TYMEBANK">
-                                        <img src="img/tyme_logo.jpeg" class="bank-logo" alt="TymeBank">
-                                        <span>Tyme Bank</span>
                                     </div>
                                 </div>
                             </div>
